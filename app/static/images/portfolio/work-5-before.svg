@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="pGrad_work-5-before_svg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#15171d"/>
+      <stop offset="100%" stop-color="#0a0c10"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#pGrad_work-5-before_svg)"/>
+  <rect x="30" y="30" width="540" height="540" fill="none" stroke="#e07a5f" stroke-width="1.5" stroke-opacity="0.4" rx="4"/>
+  
+  <path d="M 100 450 Q 300 200 500 450" stroke="#e07a5f" stroke-width="2" stroke-opacity="0.2" fill="none"/>
+  <circle cx="300" cy="260" r="130" fill="#e07a5f" fill-opacity="0.07"/>
+  
+  <rect x="50" y="50" width="150" height="32" rx="16" fill="#111111" fill-opacity="0.85" stroke="#e07a5f" stroke-width="1"/>
+  <text x="125" y="71" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600" fill="#e07a5f" letter-spacing="1.5">BEFORE / OLDIN</text>
+  
+  <text x="540" y="72" text-anchor="end" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="500" fill="#888888" letter-spacing="2">STYLING</text>
+  
+  <text x="50" y="500" font-family="'Playfair Display', Georgia, serif" font-size="24" font-weight="600" fill="#F5F0E8" letter-spacing="0.5">Shaklsiz soch turmagi (Oldin)</text>
+  <text x="50" y="530" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="400" fill="#bbbbbb" letter-spacing="1">Tekstura berishdan oldin</text>
+</svg>

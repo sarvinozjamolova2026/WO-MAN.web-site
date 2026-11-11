@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ g.t('nav_contact') }} — {{ g.t('brand_name') }}{% endblock %}
+
+{% block content %}
+<div class="container section-spacing">
+  <!-- Page Header -->
+  <div style="text-align: center; max-width: 800px; margin: 0 auto 4rem;">
+    <span class="badge-gold" style="margin-bottom: 0.8rem;">Biz bilan bog‘lanish</span>
+    <h1 style="margin-bottom: 1rem;">Studiyamizga xush kelibsiz</h1>
+    <p style="font-size: 1.1rem; color: var(--color-stone);">
+      Toshkentning eng nufuzli manzilida joylashgan studiyamiz sizga qulaylik va yuqori darajadagi xizmatni taqdim etadi.
+    </p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start;" class="hero-grid">
+    <!-- Contact Info Cards -->
+    <div style="display: flex; flex-direction: column; gap: 1.8rem;">
+      <div class="luxury-card">
+        <h4 style="font-size: 1.15rem; color: var(--color-gold); margin-bottom: 0.8rem;">Joylashuv va Manzil</h4>
+        <p style="font-size: 1.05rem; color: var(--color-ivory);">
+          Toshkent shahri, Yunusobod tumani, Amir Temur shox ko'chasi, 45-uy.
+        </p>
+        <p style="font-size: 0.88rem; color: var(--color-stone); margin-top: 0.4rem;">
+          Mo'ljal: "Amir Temur Xiyoboni" metro bekati yaqinida. Mehmonlar uchun qulay avtoturargoh mavjud.
+        </p>
+      </div>
+
+      <div class="luxury-card">
+        <h4 style="font-size: 1.15rem; color: var(--color-gold); margin-bottom: 0.8rem;">Ish vaqti</h4>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--color-border); padding-bottom: 0.6rem; margin-bottom: 0.6rem;">
+          <span style="color: var(--color-stone);">Dushanba – Shanba</span>
+          <span style="font-weight: 600; color: var(--color-ivory);">09:00 – 21:00</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--color-stone);">Yakshanba</span>
+          <span style="font-weight: 600; color: var(--color-ivory);">10:00 – 20:00</span>
+        </div>
+      </div>
+
+      <div class="luxury-card">
+        <h4 style="font-size: 1.15rem; color: var(--color-gold); margin-bottom: 0.8rem;">Aloqa va Konsyerj</h4>
+        <p style="font-size: 0.95rem; color: var(--color-stone); margin-bottom: 0.8rem;">
+          Telefon: <a href="tel:+998712000020" style="color: var(--color-ivory); font-weight: 600;">{{ g.studio_phone }}</a>
+        </p>
+        <p style="font-size: 0.95rem; color: var(--color-stone); margin-bottom: 0.8rem;">
+          Telegram kanal: <a href="https://t.me/woman_grooming" target="_blank" rel="noopener" style="color: var(--color-gold);">@woman_grooming</a>
+        </p>
+        <p style="font-size: 0.95rem; color: var(--color-stone);">
+          Instagram: <a href="https://instagram.com/woman_tashkent" target="_blank" rel="noopener" style="color: var(--color-gold);">@woman_tashkent</a>
+        </p>
+      </div>
+
+      <div>
+        <a href="/book" class="btn btn-gold" style="width: 100%; padding: 1.1rem;">
+          Onlayn qabulga yozilish &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- Interactive Map Frame -->
+    <div style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border-gold); height: 520px; box-shadow: 0 16px 40px rgba(0,0,0,0.5);">
+      <iframe 
+        title="WO&amp;MAN Joylashuv xaritasi"
+        src="https://maps.google.com/maps?q=Amir%20Temur%20Avenue%20Tashkent&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+        width="100%" 
+        height="100%" 
+        style="border:0; filter: invert(90%) hue-rotate(180deg);" 
+        allowfullscreen="" 
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+</div>
+{% endblock %}

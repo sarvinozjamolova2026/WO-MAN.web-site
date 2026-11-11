@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ g.t('booking_page_title') }} — {{ g.t('brand_name') }}{% endblock %}
+
+{% block content %}
+<div class="container section-spacing" style="max-width: 960px;">
+  <div style="text-align: center; margin-bottom: 2.5rem;">
+    <span class="badge-gold" style="margin-bottom: 0.8rem;">Eksklyuziv qabul</span>
+    <h1>{{ g.t('booking_page_title') }}</h1>
+  </div>
+
+  <div class="booking-wizard" id="booking-wizard-app"
+       data-preselect-pro="{{ preselect_pro.id if preselect_pro else '' }}"
+       data-preselect-service="{{ preselect_service.id if preselect_service else '' }}">
+    
+    <!-- Step Indicator Progress -->
+    <div class="step-indicator">
+      <div class="step-item active" data-step="1">
+        <span class="step-num">1</span>
+        <span>{{ g.t('booking_step_pro') }}</span>
+      </div>
+      <div class="step-item" data-step="2">
+        <span class="step-num">2</span>
+        <span>{{ g.t('booking_step_service') }}</span>
+      </div>
+      <div class="step-item" data-step="3">
+        <span class="step-num">3</span>
+        <span>{{ g.t('booking_step_datetime') }}</span>
+      </div>
+      <div class="step-item" data-step="4">
+        <span class="step-num">4</span>
+        <span>{{ g.t('booking_step_details') }}</span>
+      </div>
+      <div class="step-item" data-step="5">
+        <span class="step-num">5</span>
+        <span>{{ g.t('booking_step_confirm') }}</span>
+      </div>
+    </div>
+
+    <!-- Step 1: Select Professional -->
+    <div class="wizard-step-pane" data-step="1" style="display: block;">
+      <h3 style="margin-bottom: 1.5rem;">{{ g.t('select_pro_prompt') }}</h3>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem;">
+        {% for pro in professionals %}
+        <div class="luxury-card pro-select-card {% if preselect_pro and preselect_pro.id == pro.id %}selected{% endif %}"
+             data-id="{{ pro.id }}" data-name="{{ pro.name }}" style="cursor: pointer; padding: 1.2rem;">
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <img src="{{ pro.photo_url }}" alt="{{ pro.name }}" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 1px solid var(--color-gold);">
+            <div>
+              <div style="font-weight: 700; font-size: 1.1rem; color: var(--color-ivory);">{{ pro.name }}</div>
+              <div style="font-size: 0.8rem; color: var(--color-gold); text-transform: uppercase;">
+                {% if g.lang == 'ru' %}{{ pro.title_ru }}{% elif g.lang == 'en' %}{{ pro.title_en }}{% else %}{{ pro.title_uz }}{% endif %}
+              </div>
+              <div style="font-size: 0.75rem; color: var(--color-stone); margin-top: 0.2rem;">
+                {{ pro.experience_years }} yil tajriba
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Step 2: Select Service -->
+    <div class="wizard-step-pane" data-step="2" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <h3>{{ g.t('select_service_prompt') }}</h3>
+        <div style="display: flex; gap: 0.5rem;">
+          <button type="button" class="btn btn-outline btn-sm active srv-filter-btn" data-category="all">Barchasi</button>
+          <button type="button" class="btn btn-outline btn-sm srv-filter-btn" data-category="men">Erkaklar</button>
+          <button type="button" class="btn btn-outline btn-sm srv-filter-btn" data-category="women">Ayollar</button>
+          <button type="button" class="btn btn-outline btn-sm srv-filter-btn" data-category="spa">Spa &amp; Estetika</button>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;" id="services-select-list">
+        {% for srv in services %}
+        <div class="luxury-card service-select-card {% if preselect_service and preselect_service.id == srv.id %}selected{% endif %}"
+             data-id="{{ srv.id }}" data-name="{{ srv.name_uz }}" data-price="{{ srv.base_price }}" data-duration="{{ srv.duration_minutes }}"
+             data-audience="{{ srv.target_audience }}" data-category="{{ srv.category.slug if srv.category else '' }}"
+             style="cursor: pointer; padding: 1.2rem; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.8rem;">
+              <span style="font-weight: 600; font-size: 1.1rem; color: var(--color-ivory);">
+                {% if g.lang == 'ru' %}{{ srv.name_ru }}{% elif g.lang == 'en' %}{{ srv.name_en }}{% else %}{{ srv.name_uz }}{% endif %}
+              </span>
+              <span style="font-size: 0.78rem; color: var(--color-stone); background: rgba(255,255,255,0.06); padding: 2px 8px; border-radius: var(--radius-full);">
+                {{ srv.duration_minutes }} daqiqa
+              </span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--color-stone); margin-top: 0.3rem;">
+              {% if g.lang == 'ru' %}{{ srv.description_ru }}{% elif g.lang == 'en' %}{{ srv.description_en }}{% else %}{{ srv.description_uz }}{% endif %}
+            </p>
+          </div>
+          <div style="font-size: 1.2rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif); white-space: nowrap; margin-left: 1rem;">
+            {{ "{:,}".format(srv.base_price).replace(',', ' ') }} so'm
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <button type="button" class="btn btn-outline" onclick="wizardBack(1)">&larr; {{ g.t('btn_back') }}</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Date & Dynamic Slots -->
+    <div class="wizard-step-pane" data-step="3" style="display: none;">
+      <h3 style="margin-bottom: 1.5rem;">{{ g.t('select_date_prompt') }}</h3>
+      
+      <div style="display: grid; grid-template-columns: 280px 1fr; gap: 2rem;" class="hero-grid">
+        <div>
+          <label for="booking-date-input" class="form-label">Sana tanlang:</label>
+          <input type="date" id="booking-date-input" class="form-input" style="font-size: 1.05rem;">
+          <p style="font-size: 0.8rem; color: var(--color-stone); margin-top: 0.6rem;">
+            * Taqvimda ustaning haqiqiy ish kunlari va bo‘sh soatlari ko‘rsatiladi.
+          </p>
+        </div>
+
+        <div>
+          <label class="form-label">{{ g.t('select_time_prompt') }}</label>
+          <div id="slots-loading" style="display: none; padding: 1.5rem; text-align: center; color: var(--color-gold);">
+            {{ g.t('loading_slots') }}
+          </div>
+          <div id="slots-empty" style="display: none; padding: 1.5rem; text-align: center; color: #ef4444; background: rgba(239,68,68,0.1); border-radius: var(--radius-sm);">
+            {{ g.t('no_slots_available') }}
+          </div>
+          <div id="slots-grid" class="slot-grid"></div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 2.5rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem;">
+        <button type="button" class="btn btn-outline" onclick="wizardBack(2)">&larr; {{ g.t('btn_back') }}</button>
+        <button type="button" class="btn btn-gold" id="btn-step3-next" disabled onclick="wizardNext(3)">{{ g.t('btn_next') }} &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Customer Details Form -->
+    <div class="wizard-step-pane" data-step="4" style="display: none;">
+      <h3 style="margin-bottom: 1.5rem;">{{ g.t('booking_step_details') }}</h3>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="hero-grid">
+        <div class="form-group">
+          <label for="cust-name" class="form-label">{{ g.t('input_name') }} *</label>
+          <input type="text" id="cust-name" class="form-input" placeholder="{{ g.t('input_name_placeholder') }}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cust-phone" class="form-label">{{ g.t('input_phone') }} *</label>
+          <input type="tel" id="cust-phone" class="form-input" placeholder="{{ g.t('input_phone_placeholder') }}" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cust-email" class="form-label">{{ g.t('input_email') }}</label>
+        <input type="email" id="cust-email" class="form-input" placeholder="{{ g.t('input_email_placeholder') }}">
+      </div>
+
+      <div class="form-group">
+        <label for="cust-note" class="form-label">{{ g.t('input_notes') }}</label>
+        <textarea id="cust-note" class="form-textarea" rows="3" placeholder="{{ g.t('input_notes_placeholder') }}"></textarea>
+      </div>
+
+      <div style="margin-top: 1.2rem; display: flex; align-items: flex-start; gap: 0.8rem;">
+        <input type="checkbox" id="cust-consent" style="margin-top: 0.3rem;" required checked>
+        <label for="cust-consent" style="font-size: 0.88rem; color: var(--color-stone); cursor: pointer;">
+          {{ g.t('privacy_consent') }}
+        </label>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 2.5rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem;">
+        <button type="button" class="btn btn-outline" onclick="wizardBack(3)">&larr; {{ g.t('btn_back') }}</button>
+        <button type="button" class="btn btn-gold" onclick="wizardNext(4)">{{ g.t('btn_next') }} &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Summary & Final Confirmation -->
+    <div class="wizard-step-pane" data-step="5" style="display: none;">
+      <h3 style="margin-bottom: 1.5rem;">{{ g.t('summary_title') }}</h3>
+
+      <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border-gold); border-radius: var(--radius-md); padding: 2rem; margin-bottom: 2rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="hero-grid">
+          <div>
+            <div style="font-size: 0.8rem; color: var(--color-stone); text-transform: uppercase;">{{ g.t('summary_pro') }}</div>
+            <div style="font-size: 1.2rem; font-weight: 700; color: var(--color-ivory); margin-top: 0.2rem;" id="sum-pro">-</div>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--color-stone); text-transform: uppercase;">{{ g.t('summary_service') }}</div>
+            <div style="font-size: 1.2rem; font-weight: 700; color: var(--color-ivory); margin-top: 0.2rem;" id="sum-service">-</div>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--color-stone); text-transform: uppercase;">{{ g.t('summary_datetime') }}</div>
+            <div style="font-size: 1.1rem; font-weight: 600; color: var(--color-gold); margin-top: 0.2rem;" id="sum-datetime">-</div>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--color-stone); text-transform: uppercase;">{{ g.t('summary_duration') }}</div>
+            <div style="font-size: 1.1rem; color: var(--color-ivory); margin-top: 0.2rem;" id="sum-duration">-</div>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--color-stone); text-transform: uppercase;">{{ g.t('summary_price') }}</div>
+            <div style="font-size: 1.4rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif); margin-top: 0.2rem;" id="sum-price">-</div>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--color-stone); text-transform: uppercase;">{{ g.t('summary_client') }}</div>
+            <div style="font-size: 1.1rem; color: var(--color-ivory); margin-top: 0.2rem;" id="sum-client">-</div>
+            <div style="font-size: 0.9rem; color: var(--color-stone);" id="sum-phone">-</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; border-top: 1px solid var(--color-border); padding-top: 1.2rem;">
+          <div style="font-size: 0.8rem; color: var(--color-stone); text-transform: uppercase;">{{ g.t('summary_notes') }}</div>
+          <div style="font-size: 0.95rem; color: var(--color-ivory); margin-top: 0.2rem; font-style: italic;" id="sum-note">-</div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; border-top: 1px solid var(--color-border); padding-top: 1.5rem;">
+        <button type="button" class="btn btn-outline" onclick="wizardBack(4)">&larr; {{ g.t('btn_back') }}</button>
+        <button type="button" class="btn btn-gold" id="btn-submit-booking-final" style="padding: 1rem 2.5rem; font-size: 1rem;">
+          {{ g.t('btn_submit_booking') }} &rarr;
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/booking-wizard.js"></script>
+{% endblock %}

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WO&MAN BARBERSHOP — Erkaklar Go'zallik va Uslub Studiyasi (Yangiyo'l)</title>
+  <meta name="description" content="WO&MAN Barbershop Yangiyo'l — Premium erkaklar sartaroshxonasi. Akrom, Axror va Jamoliddin ustalari. Telegram bot orqali onlayn qabulga yozilish va rasmiy narxlar.">
+  <link rel="icon" type="image/jpeg" href="app/static/brand/official_logo.jpg">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Glassmorphism Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Glow Background Orbs for Glassmorphism depth -->
+  <div class="ambient-glow ambient-gold"></div>
+  <div class="ambient-glow ambient-pink"></div>
+  <div class="ambient-glow ambient-indigo"></div>
+
+  <!-- ==================== 1. GLASSMORPHISM NAVBAR ==================== -->
+  <header class="luxury-navbar">
+    <div class="container nav-container">
+      <!-- Official Brand Logo -->
+      <a href="index.html" class="brand-logo-link" title="WO&MAN Barbershop">
+        <img src="app/static/brand/official_logo.jpg" alt="WO&MAN Logo" class="brand-logo-img">
+        <div class="brand-name-box">
+          <div class="brand-title">WO <span>&</span> MAN</div>
+          <div class="brand-subtitle">BARBERSHOP • YANGIYO'L</div>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="nav-menu">
+        <a href="#bosh-sahifa" class="nav-item-link active" data-i18n="nav_home">Bosh sahifa</a>
+        <a href="#xizmatlar" class="nav-item-link" data-i18n="nav_services">Xizmatlar & Narxlar</a>
+        <a href="#barberlar" class="nav-item-link" data-i18n="nav_barbers">Barberlar</a>
+        <a href="#band-qilish" class="nav-item-link" data-i18n="nav_book">Qabulga yozilish</a>
+        <a href="#aloqa" class="nav-item-link" data-i18n="nav_contact">Aloqa</a>
+      </nav>
+
+      <!-- Action Buttons & Portals -->
+      <div class="nav-actions">
+        <!-- Working Language Switcher -->
+        <div class="lang-switcher">
+          <button type="button" class="lang-btn active" data-lang="uz">UZ</button>
+          <button type="button" class="lang-btn" data-lang="ru">RU</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+        </div>
+
+        <!-- Barber Personal Cabinet Button -->
+        <button type="button" class="btn btn-glass btn-sm" id="open-barber-btn" title="Har bir barber o'z mijozlarini ko'rishi uchun">
+          💈 Barber Kabineti
+        </button>
+
+        <!-- Admin Dashboard Button -->
+        <button type="button" class="btn btn-glass-neon btn-sm" id="open-admin-btn" title="Telegram bot va buyurtmalar boshqaruvi">
+          ⚙️ Admin Panel
+        </button>
+
+        <!-- Booking CTA -->
+        <a href="#band-qilish" class="btn btn-gold btn-sm" data-i18n="btn_book">
+          Qabulga yozilish
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 2. GLASSMORPHISM HERO SECTION ==================== -->
+  <section id="bosh-sahifa" class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Left Content -->
+        <div class="hero-content">
+          <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+            <span class="badge-glass-neon">WO & MAN BARBERSHOP</span>
+            <span class="badge-glass-gold">YANGIYO'L MARKAZI</span>
+          </div>
+
+          <h1 class="hero-title" data-i18n="hero_title">
+            Mukammal Uslub, Zamonaviy Parvarish va <span class="highlight">Haqiqiy Erkaklar</span> Muhiti
+          </h1>
+
+          <p style="font-size: 1.12rem; line-height: 1.7;" data-i18n="hero_subtitle">
+            Yangiyo'l shahrining eng zamonaviy erkaklar sartaroshxonasi. 3 nafar mahoratli usta, tasdiqlangan rasmiy narxlar va Telegram bot orqali onlayn qabulga yozilish tizimi.
+          </p>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem;">
+            <a href="#band-qilish" class="btn btn-gold btn-lg" data-i18n="btn_book">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              Qabulga yozilish
+            </a>
+            <a href="#barberlar" class="btn btn-glass btn-lg" data-i18n="btn_pros">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              Barberlarni ko'rish
+            </a>
+            <a href="#xizmatlar" class="btn btn-glass-neon btn-lg" data-i18n="btn_services">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              Xizmatlar & Narxlar
+            </a>
+          </div>
+
+          <!-- Glass Stat Badges -->
+          <div class="hero-stats">
+            <div class="glass-stat-item">
+              <div class="stat-num">3 USTA</div>
+              <div class="stat-desc">Akrom • Axror • Jamoliddin</div>
+            </div>
+            <div class="glass-stat-item">
+              <div class="stat-num">10 XIZMAT</div>
+              <div class="stat-desc">Rasmiy narxlar bilan</div>
+            </div>
+            <div class="glass-stat-item">
+              <div class="stat-num">09:00–21:00</div>
+              <div class="stat-desc">Har kuni, dam olishsiz</div>
+            </div>
+            <div class="glass-stat-item">
+              <div class="stat-num">🤖 BOT</div>
+              <div class="stat-desc">Telegram xabarnomalar</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Visual Showcase -->
+        <div class="hero-visual-box">
+          <img src="app/static/brand/official_logo.jpg" alt="WO&MAN Barbershop Official Logo" class="hero-logo-large">
+          <div>
+            <h3 style="font-size: 1.5rem; color: var(--color-gold);">WO & MAN BARBERSHOP</h3>
+            <p style="font-size: 0.88rem; color: var(--color-stone); margin-top: 0.3rem;">
+              Студия Красоты • Стиль • Качество • Уверенность
+            </p>
+          </div>
+          <div style="display: flex; gap: 0.8rem; margin-top: 0.4rem;">
+            <a href="https://instagram.com/wo_man_yangiyol" target="_blank" rel="noopener" class="badge-glass-neon" style="text-transform: none;">
+              📷 @wo_man_yangiyol
+            </a>
+            <a href="tel:+998979775994" class="badge-glass-gold" style="text-transform: none;">
+              📞 +998 97 977 59 94
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 3. SERVICES & TRANSPARENT PRICING (NO BOARD IMAGE!) ==================== -->
+  <section id="xizmatlar" class="section-spacing">
+    <div class="container">
+      <div class="section-head">
+        <span class="badge-glass-gold" data-i18n="sec_services_badge">RASMIY XIZMATLAR VA NARXLAR</span>
+        <h2 data-i18n="sec_services_title">Erkaklar Parvarishi & Narxlar Ro'yxati</h2>
+        <p data-i18n="sec_services_desc">
+          Har bir xizmat professional vositalar, sterilizatsiyalangan uskunalar va yuqori gigiyena talablari asosida bajariladi.
+        </p>
+      </div>
+
+      <!-- Category Filter Bar -->
+      <div class="services-filter-bar">
+        <button type="button" class="filter-pill active" data-filter="all">Barcha xizmatlar (10)</button>
+        <button type="button" class="filter-pill" data-filter="hair">Soch xizmatlari</button>
+        <button type="button" class="filter-pill" data-filter="beard">Soqol parvarishi</button>
+        <button type="button" class="filter-pill" data-filter="spa">SPA & Yuz parvarishi</button>
+        <button type="button" class="filter-pill" data-filter="vip">Kuyov VIP Paketi</button>
+        <button type="button" class="filter-pill" data-filter="kids">Bolalar zali</button>
+      </div>
+
+      <!-- 10 Glassmorphism Service Cards Grid -->
+      <div class="services-grid" id="services-grid-container">
+        <!-- Rendered dynamically by script.js with live prices -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 4. RESIDENT MASTER BARBERS ==================== -->
+  <section id="barberlar" class="section-spacing">
+    <div class="container">
+      <div class="section-head">
+        <span class="badge-glass-neon" data-i18n="sec_barbers_badge">BIZNING JAMOAMIZ</span>
+        <h2 data-i18n="sec_barbers_title">Mahoratli Barberlar</h2>
+        <p data-i18n="sec_barbers_desc">
+          Har bir usta o'z ishining yetuk mutaxassisi bo'lib, sizga individual yondashuv va mukammal natija taqdim etadi.
+        </p>
+      </div>
+
+      <div class="barber-grid">
+        <!-- 1. AKROM -->
+        <div class="barber-glass-card">
+          <div class="barber-media">
+            <img src="app/static/images/pros/akrom.jpg" alt="Barber Akrom">
+            <div class="barber-tag">8 yil tajriba</div>
+          </div>
+          <div class="barber-info">
+            <div class="barber-title-row">
+              <h3 style="font-size: 1.45rem;">Akrom</h3>
+              <span class="barber-rank">Top Barber</span>
+            </div>
+            
+            <div class="barber-phone-box">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <a href="tel:+998975487797">+998 97 548 77 97</a>
+            </div>
+
+            <p class="barber-skills">
+              <strong>Mutaxassisligi:</strong> Klassik va zamonaviy soch turmaklari, Low/Mid Fade, soqol geometriyasi, toza chiziqlar va aniq konturlar.
+            </p>
+
+            <div style="font-size: 0.8rem; color: var(--color-stone);">
+              Ish kunlari: Har kuni (Dushanba dam olish) • 09:00 - 21:00
+            </div>
+
+            <div class="barber-actions">
+              <a href="tel:+998975487797" class="btn btn-glass btn-sm">
+                Qo'ng'iroq
+              </a>
+              <button type="button" class="btn btn-gold btn-sm btn-book-barber" data-barber="akrom">
+                Qabuliga yozilish &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. AXROR -->
+        <div class="barber-glass-card">
+          <div class="barber-media">
+            <img src="app/static/images/pros/axror.jpg" alt="Barber Axror">
+            <div class="barber-tag">6 yil tajriba</div>
+          </div>
+          <div class="barber-info">
+            <div class="barber-title-row">
+              <h3 style="font-size: 1.45rem;">Axror</h3>
+              <span class="barber-rank">Master Barber</span>
+            </div>
+
+            <div class="barber-phone-box">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <a href="tel:+998770717837">+998 77 071 78 37</a>
+            </div>
+
+            <p class="barber-skills">
+              <strong>Mutaxassisligi:</strong> Zamonaviy erkaklar ukladkasi, bolalar soch turmagi (Detskiy), soqol qirqish, vosk bilan tozalash va yuz parvarishi.
+            </p>
+
+            <div style="font-size: 0.8rem; color: var(--color-stone);">
+              Ish kunlari: Har kuni (Seshanba dam olish) • 09:00 - 21:00
+            </div>
+
+            <div class="barber-actions">
+              <a href="tel:+998770717837" class="btn btn-glass btn-sm">
+                Qo'ng'iroq
+              </a>
+              <button type="button" class="btn btn-gold btn-sm btn-book-barber" data-barber="axror">
+                Qabuliga yozilish &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. JAMOLIDDIN -->
+        <div class="barber-glass-card">
+          <div class="barber-media">
+            <img src="app/static/images/pros/jamoliddin.jpg" alt="Barber Jamoliddin">
+            <div class="barber-tag">7 yil tajriba</div>
+          </div>
+          <div class="barber-info">
+            <div class="barber-title-row">
+              <h3 style="font-size: 1.45rem;">Jamoliddin</h3>
+              <span class="barber-rank">VIP Master & Barber</span>
+            </div>
+
+            <div class="barber-phone-box">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <a href="tel:+998979775994">+998 97 977 59 94</a>
+            </div>
+
+            <p class="barber-skills">
+              <strong>Mutaxassisligi:</strong> Kuyov obrozi (VIP paket), relaks bosh massaji, soch bo'yash va kamuflyaj, soqol shakli va premium SPA parvarishi.
+            </p>
+
+            <div style="font-size: 0.8rem; color: var(--color-stone);">
+              Ish kunlari: Har kuni (Chorshanba dam olish) • 09:00 - 21:00
+            </div>
+
+            <div class="barber-actions">
+              <a href="tel:+998979775994" class="btn btn-glass btn-sm">
+                Qo'ng'iroq
+              </a>
+              <button type="button" class="btn btn-gold btn-sm btn-book-barber" data-barber="jamoliddin">
+                Qabuliga yozilish &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. GLASSMORPHISM BOOKING ENGINE ==================== -->
+  <section id="band-qilish" class="section-spacing booking-section">
+    <div class="container">
+      <div class="section-head">
+        <span class="badge-glass-gold" data-i18n="sec_book_badge">ONLAYN QABULGA YOZILISH</span>
+        <h2 data-i18n="sec_book_title">Usta, Xizmat va Qulay Vaqtni Tanlang</h2>
+        <p data-i18n="sec_book_desc">Qabulga yozilish bepul va tez. Tanlagan vaqtingizda sizni kutib olamiz.</p>
+      </div>
+
+      <div class="glass-booking-box">
+        <form id="main-booking-form">
+          <div class="booking-form-grid">
+            <!-- 1. Barber Select -->
+            <div class="form-group">
+              <label class="form-label">Barberni tanlang</label>
+              <select class="form-select" id="book-barber" required>
+                <option value="akrom">Akrom (Top Barber — +998 97 548 77 97)</option>
+                <option value="axror">Axror (Master Barber — +998 77 071 78 37)</option>
+                <option value="jamoliddin">Jamoliddin (VIP Master — +998 97 977 59 94)</option>
+                <option value="any">Istalgan bo'sh usta</option>
+              </select>
+            </div>
+
+            <!-- 2. Service Select -->
+            <div class="form-group">
+              <label class="form-label">Xizmat turini tanlang</label>
+              <select class="form-select" id="book-service" required>
+                <!-- Populated dynamically with live prices -->
+              </select>
+            </div>
+
+            <!-- 3. Date Picker -->
+            <div class="form-group">
+              <label class="form-label">Qabul sanasi</label>
+              <input type="date" class="form-input" id="book-date" required>
+            </div>
+
+            <!-- 4. Time Slot Picker -->
+            <div class="form-group">
+              <label class="form-label">Mavjud vaqtlar (09:00 - 21:00)</label>
+              <input type="hidden" id="selected-time" value="10:20">
+              <div class="time-slots-grid" id="time-slots-container">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- 5. Customer Name -->
+            <div class="form-group">
+              <label class="form-label">Ismingiz</label>
+              <input type="text" class="form-input" id="book-name" placeholder="Masalan: Sardor" required>
+            </div>
+
+            <!-- 6. Customer Phone -->
+            <div class="form-group">
+              <label class="form-label">Telefon raqamingiz</label>
+              <input type="tel" class="form-input" id="book-phone" placeholder="+998 90 123 45 67" required>
+            </div>
+
+            <!-- 7. Notes -->
+            <div class="form-group full">
+              <label class="form-label">Qo'shimcha istaklar (Ixtiyoriy)</label>
+              <input type="text" class="form-input" id="book-notes" placeholder="Masalan: Fade baland bo'lsin, soqolni tekislash">
+            </div>
+
+            <!-- Submit -->
+            <div class="form-group full" style="margin-top: 1rem;">
+              <button type="submit" class="btn btn-gold btn-lg" style="width: 100%;">
+                Qabulga Yozilishni Tasdiqlash &rarr;
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 6. STUDIO LOCATION & CONTACT ==================== -->
+  <section id="aloqa" class="section-spacing">
+    <div class="container">
+      <div class="hero-grid" style="align-items: center;">
+        <div>
+          <span class="badge-glass-gold">JOYLAShUV VA ALOQA</span>
+          <h2 style="margin-block: 1rem 1.5rem;">WO&MAN Barbershop</h2>
+          
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div>
+              <div style="color: var(--color-gold); font-size: 0.85rem; text-transform: uppercase; font-weight: 600;">Manzilimiz</div>
+              <div style="font-size: 1.1rem; color: var(--color-ivory);">Toshkent viloyati, Yangiyo'l shahri markazi</div>
+            </div>
+
+            <div>
+              <div style="color: var(--color-gold); font-size: 0.85rem; text-transform: uppercase; font-weight: 600;">Ish Vaqti</div>
+              <div style="font-size: 1.1rem; color: var(--color-ivory);">Har kuni 09:00 dan 21:00 gacha (Dam olish kunlarisiz)</div>
+            </div>
+
+            <div>
+              <div style="color: var(--color-gold); font-size: 0.85rem; text-transform: uppercase; font-weight: 600;">Asosiy Aloqa Telefoni</div>
+              <div style="font-size: 1.3rem; font-weight: 700;">
+                <a href="tel:+998979775994" style="color: var(--color-gold);">+998 97 977 59 94</a>
+              </div>
+            </div>
+
+            <div>
+              <div style="color: var(--color-gold); font-size: 0.85rem; text-transform: uppercase; font-weight: 600;">Rasmiy Instagram</div>
+              <div style="font-size: 1.05rem;">
+                <a href="https://instagram.com/wo_man_yangiyol" target="_blank" rel="noopener" style="color: var(--color-neon-pink); font-weight: 600;">
+                  @wo_man_yangiyol
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google Maps Embed -->
+        <div style="border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.15); height: 380px; box-shadow: var(--glass-shadow);">
+          <iframe 
+            title="WO&MAN Yangiyol Joylashuvi"
+            src="https://maps.google.com/maps?q=Yangiyol%20Uzbekistan&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+            width="100%" 
+            height="100%" 
+            style="border:0; filter: invert(90%) hue-rotate(180deg);" 
+            allowfullscreen="" 
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 7. FOOTER ==================== -->
+  <footer class="luxury-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div style="display: flex; align-items: center; gap: 0.8rem;">
+            <img src="app/static/brand/official_logo.jpg" alt="Logo" class="brand-logo-img">
+            <div>
+              <div class="brand-title">WO <span>&</span> MAN</div>
+              <div class="brand-subtitle">BARBERSHOP • YANGIYO'L</div>
+            </div>
+          </div>
+          <p style="font-size: 0.88rem; margin-top: 0.8rem;">
+            Yangiyo'l shahrida mukammal uslub, shinam atmosfera va professional erkaklar parvarishi.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-heading">Tezkor Havolalar</div>
+          <ul class="footer-links">
+            <li><a href="#bosh-sahifa">Bosh sahifa</a></li>
+            <li><a href="#xizmatlar">Xizmatlar & Narxlar</a></li>
+            <li><a href="#barberlar">Barberlarimiz</a></li>
+            <li><a href="#band-qilish">Onlayn Qabul</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-heading">Barberlar Telefonlari</div>
+          <ul class="footer-links">
+            <li><a href="tel:+998975487797">Akrom: +998 97 548 77 97</a></li>
+            <li><a href="tel:+998770717837">Axror: +998 77 071 78 37</a></li>
+            <li><a href="tel:+998979775994">Jamoliddin: +998 97 977 59 94</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-heading">Boshqaruv & Kabinet</div>
+          <p style="font-size: 0.85rem; color: var(--color-stone);">
+            Admin va barberlar uchun to'g'ridan-to'g'ri boshqaruv panellari:
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.6rem;">
+            <button type="button" class="btn btn-glass-neon btn-sm" onclick="document.getElementById('admin-modal').classList.add('active'); renderAdminBookings(); loadAdminTelegramSettings();">
+              ⚙️ Admin Panel ochish
+            </button>
+            <button type="button" class="btn btn-glass btn-sm" onclick="document.getElementById('barber-modal').classList.add('active'); renderBarberCabinet('akrom');">
+              💈 Barber Kabineti ochish
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 WO&MAN BARBERSHOP. Barcha huquqlar himoyalangan.</div>
+        <div>Yangiyo'l shahri, O'zbekiston • Tel: +998 97 977 59 94</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== 8. ADMIN PANEL GLASSMORPHISM MODAL ==================== -->
+  <div class="modal-overlay" id="admin-modal">
+    <div class="glass-modal-content">
+      <button type="button" class="modal-close-btn" id="admin-modal-close">&times;</button>
+      
+      <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem;">
+        <span class="badge-glass-neon">ADMINISTRATOR</span>
+        <h3 style="font-size: 1.45rem; color: var(--color-gold);">WO&MAN Boshqaruv Paneli</h3>
+      </div>
+
+      <!-- Admin Tabs -->
+      <div class="modal-tabs">
+        <button type="button" class="modal-tab-btn admin-tab-btn active" data-target="admin-tab-bookings">
+          📊 Buyurtmalar Jurnali
+        </button>
+        <button type="button" class="modal-tab-btn admin-tab-btn" data-target="admin-tab-telegram">
+          🤖 Telegram Bot Sozlamalari
+        </button>
+        <button type="button" class="modal-tab-btn admin-tab-btn" data-target="admin-tab-services">
+          💰 Xizmatlar & Narxlar
+        </button>
+      </div>
+
+      <!-- Tab 1: All Bookings -->
+      <div class="admin-tab-content" id="admin-tab-bookings">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem;">
+          <div style="font-size: 0.9rem; color: var(--color-ivory-muted);">
+            Barcha kelib tushgan buyurtmalar ro'yxati:
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="button" class="btn btn-glass btn-sm" onclick="renderAdminBookings('all')">Barchasi</button>
+            <button type="button" class="btn btn-glass btn-sm" onclick="renderAdminBookings('akrom')">Akrom</button>
+            <button type="button" class="btn btn-glass btn-sm" onclick="renderAdminBookings('axror')">Axror</button>
+            <button type="button" class="btn btn-glass btn-sm" onclick="renderAdminBookings('jamoliddin')">Jamoliddin</button>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="glass-table">
+            <thead>
+              <tr>
+                <th>Kod</th>
+                <th>Mijoz & Tel</th>
+                <th>Usta</th>
+                <th>Xizmat</th>
+                <th>Sana & Vaqt</th>
+                <th>Holat</th>
+                <th>Amal</th>
+              </tr>
+            </thead>
+            <tbody id="admin-bookings-table-body">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 2: Telegram Bot Integration Settings -->
+      <div class="admin-tab-content" id="admin-tab-telegram" style="display: none;">
+        <div style="background: rgba(255,20,147,0.06); border: 1px solid rgba(255,20,147,0.25); border-radius: var(--radius-md); padding: 1.2rem; margin-bottom: 1.5rem;">
+          <h4 style="color: var(--color-neon-pink); font-size: 1.05rem; margin-bottom: 0.4rem;">🤖 Telegram Botni Ulash Bo'yicha Ko'rsatma:</h4>
+          <ol style="font-size: 0.86rem; color: var(--color-ivory-muted); padding-left: 1.2rem; line-height: 1.6;">
+            <li>Telegramda <b>@BotFather</b> orqali yangi bot yarating va berilgan <code>API Token</code> ni quyidagi qatorga yozing.</li>
+            <li>O'z Telegram hisobingizdan botga <code>/start</code> bosing.</li>
+            <li>Telegram <b>Chat ID</b> raqamingizni bilish uchun <b>@userinfobot</b> ga kiring va ID raqamingizni oling.</li>
+            <li>Har bir barberning o'z Chat ID raqamini kiritsangiz, mijoz qaysi usta qabuliga yozilsa, xabarnoma to'g'ridan-to'g'ri o'sha barberning Telegramiga boradi!</li>
+          </ol>
+        </div>
+
+        <form id="admin-telegram-form">
+          <div class="booking-form-grid" style="gap: 1.2rem;">
+            <div class="form-group full">
+              <label class="form-label">Telegram Bot Token (BotFather dan)</label>
+              <input type="text" class="form-input" id="tg-bot-token" placeholder="Masalan: 7123456789:AAHv..." required>
+            </div>
+
+            <div class="form-group full">
+              <label class="form-label">Admin Telegram Chat ID (Barcha xabarlar nusxasi uchun)</label>
+              <input type="text" class="form-input" id="tg-admin-chat-id" placeholder="Masalan: 123456789">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Akrom — Telegram Chat ID</label>
+              <input type="text" class="form-input" id="tg-akrom-chat-id" placeholder="Akromning shaxsiy Chat ID raqami">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Axror — Telegram Chat ID</label>
+              <input type="text" class="form-input" id="tg-axror-chat-id" placeholder="Axrorning shaxsiy Chat ID raqami">
+            </div>
+
+            <div class="form-group full">
+              <label class="form-label">Jamoliddin — Telegram Chat ID</label>
+              <input type="text" class="form-input" id="tg-jamoliddin-chat-id" placeholder="Jamoliddinning shaxsiy Chat ID raqami">
+            </div>
+
+            <div class="form-group full" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
+              <button type="submit" class="btn btn-gold">
+                💾 Sozlamalarni Saqlash
+              </button>
+              <button type="button" class="btn btn-glass-neon" id="btn-test-telegram">
+                ⚡ Botni Sinab Ko'rish (Test Xabar Yuborish)
+              </button>
+            </div>
+            <div class="form-group full" id="tg-test-feedback"></div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Tab 3: Services & Prices Editor -->
+      <div class="admin-tab-content" id="admin-tab-services" style="display: none;">
+        <p style="font-size: 0.88rem; color: var(--color-stone); margin-bottom: 1rem;">
+          Rasmiy 10 ta xizmat narxlarini shu yerdan to'g'ridan-to'g'ri o'zgartirishingiz mumkin:
+        </p>
+        <div style="overflow-x: auto;">
+          <table class="glass-table">
+            <thead>
+              <tr>
+                <th>№</th>
+                <th>Xizmat nomi</th>
+                <th>Davomiyligi</th>
+                <th>Narxi (UZS)</th>
+                <th>Amal</th>
+              </tr>
+            </thead>
+            <tbody id="admin-services-table-body">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 9. BARBER PERSONAL CABINET GLASSMORPHISM MODAL ==================== -->
+  <div class="modal-overlay" id="barber-modal">
+    <div class="glass-modal-content">
+      <button type="button" class="modal-close-btn" id="barber-modal-close">&times;</button>
+      
+      <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem;">
+        <span class="badge-glass-gold">BARBER KABINETI</span>
+        <h3 style="font-size: 1.45rem; color: var(--color-gold);">Usta Shaxsiy Ish Oynasi</h3>
+      </div>
+
+      <!-- Barber Selection Pills -->
+      <div style="display: flex; gap: 0.6rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+        <button type="button" class="filter-pill barber-select-pill active" data-barber-id="akrom">
+          👨‍🦰 Akrom
+        </button>
+        <button type="button" class="filter-pill barber-select-pill" data-barber-id="axror">
+          👨‍🦱 Axror
+        </button>
+        <button type="button" class="filter-pill barber-select-pill" data-barber-id="jamoliddin">
+          🧔 Jamoliddin
+        </button>
+      </div>
+
+      <!-- Barber Header Info Card -->
+      <div class="glass-card" style="padding: 1.2rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.8rem; flex-wrap: wrap; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <img src="app/static/images/pros/akrom.jpg" alt="Barber" id="barber-cab-photo" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-gold);">
+          <div>
+            <h4 id="barber-cab-name" style="font-size: 1.25rem;">Akrom</h4>
+            <div id="barber-cab-rank" style="font-size: 0.8rem; color: var(--color-gold); font-weight: 600;">Top Barber</div>
+            <div id="barber-cab-phone" style="font-size: 0.82rem; color: var(--color-stone);">+998 97 548 77 97</div>
+          </div>
+        </div>
+
+        <!-- Barber Personal Telegram ID Setting -->
+        <form id="barber-personal-tg-form" style="display: flex; gap: 0.5rem; align-items: center;">
+          <input type="text" class="form-input" id="barber-personal-chat-id" placeholder="Mening Telegram Chat ID" style="padding: 0.5rem 0.8rem; font-size: 0.85rem; width: 200px;">
+          <button type="submit" class="btn btn-gold btn-sm">Saqlash</button>
+        </form>
+      </div>
+
+      <!-- My Client Bookings -->
+      <h4 style="margin-bottom: 1rem; color: var(--color-ivory);">Mening Mijozlarimdan Kelgan Buyurtmalar:</h4>
+      <div id="barber-my-bookings-container">
+        <!-- Filtered list of bookings specifically for this barber -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 10. BOOKING SUCCESS MODAL ==================== -->
+  <div class="modal-overlay" id="success-modal">
+    <div class="glass-modal-content" style="max-width: 580px; text-align: center;">
+      <button type="button" class="modal-close-btn" onclick="document.getElementById('success-modal').classList.remove('active')">&times;</button>
+      
+      <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 2px solid #10b981; color: #10b981; display: inline-flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1rem;">
+        ✓
+      </div>
+
+      <h3 style="color: var(--color-gold); font-size: 1.5rem;">Qabulga Yozildingiz!</h3>
+      <p style="font-size: 0.95rem; margin-top: 0.3rem; color: var(--color-ivory-muted);">
+        Buyurtmangiz tizimga qayd etildi va tanlangan barberga yetkazildi.
+      </p>
+
+      <div id="booking-details-content">
+        <!-- Dynamically injected -->
+      </div>
+
+      <div style="margin-top: 1.2rem;">
+        <button type="button" class="btn btn-gold" onclick="document.getElementById('success-modal').classList.remove('active')">
+          Tushunarli
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript -->
+  <script src="script.js"></script>
+</body>
+</html>

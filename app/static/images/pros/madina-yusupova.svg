@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1d171b"/>
+      <stop offset="50%" stop-color="#141013"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <radialGradient id="spotlight4" cx="50%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#C5A46D" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="750" fill="url(#bgGrad4)"/>
+  <circle cx="300" cy="270" r="280" fill="url(#spotlight4)"/>
+  
+  <!-- Stylized Editorial Portrait: Madina Yusupova (Senior Stylist & Hair Care) -->
+  <g transform="translate(0, 45)">
+    <path d="M 130 630 C 160 500, 210 450, 300 450 C 390 450, 440 500, 470 630 L 510 720 L 90 720 Z" fill="#1e181c" stroke="#31262d" stroke-width="2"/>
+    <rect x="270" y="340" width="60" height="115" rx="15" fill="#edd0be"/>
+    <ellipse cx="300" cy="265" rx="72" ry="96" fill="#f5dbcb"/>
+    
+    <!-- Sleek Geometric Precision Bob Haircut -->
+    <path d="M 215 250 C 205 130, 245 105, 300 100 C 355 105, 395 130, 385 250 C 390 340, 375 380, 345 390 C 335 340, 350 250, 300 240 C 250 250, 265 340, 255 390 C 225 380, 210 340, 215 250 Z" fill="#151214"/>
+    <path d="M 225 210 Q 300 170 375 210" stroke="#C5A46D" stroke-width="2" fill="none" opacity="0.6"/>
+    
+    <path d="M 252 248 Q 272 242 285 248" stroke="#151214" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 315 248 Q 328 242 348 248" stroke="#151214" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="270" cy="258" r="4" fill="#2d1d13"/>
+    <circle cx="330" cy="258" r="4" fill="#2d1d13"/>
+    <path d="M 300 252 L 297 285 L 304 285" stroke="#d1aa92" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M 284 314 Q 300 310 316 314 Q 300 326 284 314 Z" fill="#994444"/>
+  </g>
+  
+  <rect x="25" y="25" width="550" height="700" fill="none" stroke="#C5A46D" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="50" y="660" font-family="'Playfair Display', Georgia, serif" font-size="32" font-weight="600" fill="#F5F0E8" letter-spacing="1">Madina Yusupova</text>
+  <text x="50" y="690" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="500" fill="#C5A46D" letter-spacing="3">SENIOR STYLIST &amp; HAIR CARE</text>
+  <text x="550" y="685" text-anchor="end" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="400" fill="#888888" letter-spacing="2">WO&amp;MAN ATELIER</text>
+</svg>

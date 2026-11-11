@@ -1,0 +1,322 @@
+{% extends 'base.html' %}
+
+{% block title %}Mutaxassis Kabineti — {{ pro.name }}{% endblock %}
+
+{% block content %}
+<div class="container section-spacing">
+  <!-- Profile & Header Bar -->
+  <div class="luxury-card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2.5rem; padding: 2rem;">
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+      <img src="{{ pro.photo_url }}" alt="{{ pro.name }}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-gold);">
+      <div>
+        <div class="badge-gold" style="font-size: 0.72rem; margin-bottom: 0.3rem;">Mutaxassis shaxsiy kabineti</div>
+        <h1 style="font-size: 1.8rem; margin-bottom: 0.2rem;">{{ pro.name }}</h1>
+        <div style="color: var(--color-gold); font-size: 0.88rem; text-transform: uppercase;">
+          {{ pro.title_uz }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Telegram Channel Status & Test Form -->
+    <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--color-border); padding: 1rem 1.4rem; border-radius: var(--radius-sm); display: flex; flex-direction: column; gap: 0.5rem;">
+      <div style="font-size: 0.8rem; color: var(--color-stone); text-transform: uppercase;">Telegram bildirishnoma yo‘nalishi:</div>
+      <form method="POST" action="/pro/test-telegram" style="display: flex; gap: 0.6rem; align-items: center;">
+        <input type="text" name="telegram_chat_id" class="form-input" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; width: 150px;"
+               placeholder="Chat ID (masalan: 12345678)" value="{{ pro.telegram_chat_id or '' }}">
+        <button type="submit" class="btn btn-gold btn-sm" style="white-space: nowrap;">
+          Test xabar
+        </button>
+      </form>
+      <div style="font-size: 0.72rem; color: var(--color-stone);">
+        {% if pro.telegram_chat_id %}
+          <span style="color: #4ade80;">✓ Chat ID ulangan: {{ pro.telegram_chat_id }}</span>
+        {% else %}
+          <span style="color: #facc15;">! Chat ID ulanmagan. Yangi yozilishlar bot orqali kelishi uchun kiriting.</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI Quick Stats -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+    <div class="luxury-card" style="padding: 1.5rem;">
+      <div style="font-size: 0.8rem; color: var(--color-stone); text-transform: uppercase;">Bugungi qabullar</div>
+      <div style="font-size: 2.2rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif); margin-top: 0.3rem;">
+        {{ today_appts|length }}
+      </div>
+    </div>
+    <div class="luxury-card" style="padding: 1.5rem;">
+      <div style="font-size: 0.8rem; color: var(--color-stone); text-transform: uppercase;">Yangi kutilayotgan so‘rovlar</div>
+      <div style="font-size: 2.2rem; font-weight: 700; color: #facc15; font-family: var(--font-serif); margin-top: 0.3rem;">
+        {{ pending_appts|length }}
+      </div>
+    </div>
+    <div class="luxury-card" style="padding: 1.5rem;">
+      <div style="font-size: 0.8rem; color: var(--color-stone); text-transform: uppercase;">Jami buyurtmalar tarixi</div>
+      <div style="font-size: 2.2rem; font-weight: 700; color: var(--color-ivory); font-family: var(--font-serif); margin-top: 0.3rem;">
+        {{ appointments|length }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 1: Bookings Management -->
+  <div style="margin-bottom: 4rem;">
+    <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Yozilishlar va qabullar ro‘yxati</h2>
+
+    {% if appointments %}
+    <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+      {% for appt in appointments %}
+      <div class="luxury-card" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.8rem;">
+              <span style="font-family: monospace; font-size: 1.1rem; font-weight: 700; color: var(--color-gold);">
+                {{ appt.reference_code }}
+              </span>
+              <span class="status-pill status-{{ appt.status }}">
+                {{ g.t('status_' + appt.status) }}
+              </span>
+            </div>
+            <div style="font-size: 1.15rem; font-weight: 600; color: var(--color-ivory); margin-top: 0.4rem;">
+              {{ appt.customer_name }} &bull; <a href="tel:{{ appt.customer_phone }}" style="color: var(--color-gold);">{{ appt.customer_phone }}</a>
+            </div>
+          </div>
+
+          <div style="text-align: right;">
+            <div style="font-size: 1.1rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif);">
+              {{ appt.appointment_date.strftime('%d.%m.%Y') }} &bull; {{ appt.start_time }} – {{ appt.end_time }}
+            </div>
+            <div style="font-size: 0.88rem; color: var(--color-stone); margin-top: 0.2rem;">
+              {{ appt.service.name_uz }} &bull; {{ "{:,}".format(appt.price).replace(',', ' ') }} so'm
+            </div>
+          </div>
+        </div>
+
+        <!-- Customer Private Note -->
+        {% if appt.customer_note %}
+        <div style="background: rgba(197, 164, 109, 0.06); border-left: 3px solid var(--color-gold); padding: 0.8rem 1rem; border-radius: 2px;">
+          <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--color-gold); font-weight: 600;">Mijozdan maxsus izoh:</div>
+          <div style="font-size: 0.92rem; color: var(--color-ivory); margin-top: 0.2rem; font-style: italic;">
+            "{{ appt.customer_note }}"
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Status Action Buttons -->
+        <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; border-top: 1px solid var(--color-border); padding-top: 0.8rem;">
+          {% if appt.status == 'pending' %}
+          <form method="POST" action="/pro/booking/status" style="display: inline;">
+            <input type="hidden" name="appointment_id" value="{{ appt.id }}">
+            <input type="hidden" name="status" value="accepted">
+            <button type="submit" class="btn btn-gold btn-sm">Qabul qilish</button>
+          </form>
+          <form method="POST" action="/pro/booking/status" style="display: inline;">
+            <input type="hidden" name="appointment_id" value="{{ appt.id }}">
+            <input type="hidden" name="status" value="confirmed">
+            <button type="submit" class="btn btn-outline btn-sm">To‘g‘ridan-to‘g‘ri tasdiqlash</button>
+          </form>
+          <form method="POST" action="/pro/booking/status" style="display: inline;">
+            <input type="hidden" name="appointment_id" value="{{ appt.id }}">
+            <input type="hidden" name="status" value="rejected">
+            <button type="submit" class="btn btn-dark btn-sm" onclick="return confirm('Buyurtmani rad etmoqchimisiz?')">Rad etish</button>
+          </form>
+          {% elif appt.status in ['accepted', 'confirmed'] %}
+          <form method="POST" action="/pro/booking/status" style="display: inline;">
+            <input type="hidden" name="appointment_id" value="{{ appt.id }}">
+            <input type="hidden" name="status" value="completed">
+            <button type="submit" class="btn btn-gold btn-sm">Muvaffaqiyatli tugatildi</button>
+          </form>
+          <form method="POST" action="/pro/booking/status" style="display: inline;">
+            <input type="hidden" name="appointment_id" value="{{ appt.id }}">
+            <input type="hidden" name="status" value="cancelled">
+            <button type="submit" class="btn btn-dark btn-sm" onclick="return confirm('Bekor qilmoqchimisiz?')">Bekor qilish</button>
+          </form>
+          <form method="POST" action="/pro/booking/status" style="display: inline;">
+            <input type="hidden" name="appointment_id" value="{{ appt.id }}">
+            <input type="hidden" name="status" value="no_show">
+            <button type="submit" class="btn btn-dark btn-sm">Kelmadi (No-show)</button>
+          </form>
+          {% else %}
+          <span style="font-size: 0.85rem; color: var(--color-stone);">Ushbu buyurtma yakunlangan.</span>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="luxury-card" style="text-align: center; padding: 3rem; color: var(--color-stone);">
+      Hozircha sizda faol buyurtmalar mavjud emas.
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Section 2: Barber Profile Management (O'z ma'lumotlarini tahrirlash) -->
+  <div style="margin-bottom: 4rem;">
+    <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Shaxsiy profil va ma'lumotlarni tahrirlash</h2>
+    <div class="luxury-card" style="padding: 2.2rem;">
+      <form method="POST" action="/pro/profile/update" enctype="multipart/form-data">
+        <div style="display: grid; grid-template-columns: 180px 1fr 1fr; gap: 2rem; align-items: start;" class="hero-grid">
+          <!-- Photo preview & upload -->
+          <div style="text-align: center;">
+            <img src="{{ pro.photo_url }}" alt="{{ pro.name }}" style="width: 140px; height: 160px; border-radius: var(--radius-sm); object-fit: cover; border: 2px solid var(--color-gold); margin-bottom: 0.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+            <label class="form-label" style="font-size: 0.8rem;">Yangi rasm yuklash:</label>
+            <input type="file" name="photo" class="form-input" accept="image/*" style="font-size: 0.75rem; padding: 0.3rem;">
+          </div>
+
+          <!-- Basic details -->
+          <div>
+            <div class="form-group">
+              <label class="form-label">To‘liq ismingiz:</label>
+              <input type="text" name="name" value="{{ pro.name }}" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Lavozim / Unvon:</label>
+              <input type="text" name="title_uz" value="{{ pro.title_uz }}" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Telefon raqamingiz:</label>
+              <input type="text" name="sms_phone" value="{{ pro.sms_phone or '' }}" class="form-input" placeholder="+998 90 123 45 67">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tajriba (yil):</label>
+              <input type="number" name="experience_years" value="{{ pro.experience_years }}" class="form-input" style="width: 100px;">
+            </div>
+          </div>
+
+          <!-- Skills, Bio & Social -->
+          <div>
+            <div class="form-group">
+              <label class="form-label">Ixtisoslashuv va yo‘nalishlar:</label>
+              <input type="text" name="specialties_uz" value="{{ pro.specialties_uz or '' }}" class="form-input" placeholder="Klassik turmak, Fade, Soqol...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Asosiy ko‘nikmalar:</label>
+              <input type="text" name="skills_uz" value="{{ pro.skills_uz or '' }}" class="form-input" placeholder="Skin Fade • Vosk • Ukladka...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Instagram havola:</label>
+              <input type="text" name="instagram_url" value="{{ pro.instagram_url or '' }}" class="form-input" placeholder="https://instagram.com/...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">O‘zingiz haqingizda qisqacha ma'lumot (Biografiya):</label>
+              <textarea name="bio_uz" class="form-textarea" rows="3">{{ pro.bio_uz }}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 2rem; border-top: 1px solid var(--color-border); padding-top: 1.2rem; text-align: right;">
+          <button type="submit" class="btn btn-gold">
+            Profil ma'lumotlarini saqlash
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Section 3: Working Schedule Management -->
+  <div style="margin-bottom: 4rem;">
+    <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Haftalik ish jadvalini boshqarish</h2>
+    <div class="luxury-card" style="padding: 2rem;">
+      <form method="POST" action="/pro/schedule/update">
+        {% set days_uz = ['Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba', 'Yakshanba'] %}
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          {% for sched in schedules %}
+          <div style="display: grid; grid-template-columns: 140px 100px 1fr 1fr; gap: 1rem; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 0.8rem;" class="hero-grid">
+            <div style="font-weight: 600; color: var(--color-ivory);">
+              {{ days_uz[sched.day_of_week] }}
+            </div>
+            <div>
+              <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-size: 0.88rem;">
+                <input type="checkbox" name="working_{{ sched.day_of_week }}" {% if sched.is_working %}checked{% endif %}>
+                Ish kuni
+              </label>
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <span style="font-size: 0.8rem; color: var(--color-stone);">Ish vaqti:</span>
+              <input type="time" name="start_{{ sched.day_of_week }}" value="{{ sched.start_time }}" class="form-input" style="padding: 0.3rem 0.5rem; width: 110px;">
+              <span>–</span>
+              <input type="time" name="end_{{ sched.day_of_week }}" value="{{ sched.end_time }}" class="form-input" style="padding: 0.3rem 0.5rem; width: 110px;">
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <span style="font-size: 0.8rem; color: var(--color-stone);">Tanaffus:</span>
+              <input type="time" name="break_start_{{ sched.day_of_week }}" value="{{ sched.break_start or '13:00' }}" class="form-input" style="padding: 0.3rem 0.5rem; width: 110px;">
+              <span>–</span>
+              <input type="time" name="break_end_{{ sched.day_of_week }}" value="{{ sched.break_end or '14:00' }}" class="form-input" style="padding: 0.3rem 0.5rem; width: 110px;">
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div style="margin-top: 1.5rem; text-align: right;">
+          <button type="submit" class="btn btn-gold">
+            Jadvalni yangilash va saqlash
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Section 3: Portfolio Management -->
+  <div>
+    <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Portfolio va mualliflik ishlarini boshqarish</h2>
+
+    <!-- Upload Form -->
+    <div class="luxury-card" style="padding: 2rem; margin-bottom: 2.5rem;">
+      <h4 style="margin-bottom: 1.2rem; color: var(--color-gold);">Yangi mualliflik ishini qo‘shish</h4>
+      <form method="POST" action="/pro/portfolio/add" enctype="multipart/form-data">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="hero-grid">
+          <div class="form-group">
+            <label class="form-label">Ish nomi / Tavsif:</label>
+            <input type="text" name="title_uz" class="form-input" placeholder="Masalan: Klassik Skin Fade va Soqol" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kategoriya:</label>
+            <select name="category" class="form-select">
+              <option value="men_cut">Erkaklar turmagi</option>
+              <option value="beard">Soqol dizayni</option>
+              <option value="color">AirTouch / Bo‘yash</option>
+              <option value="styling">Stilizatsiya</option>
+              <option value="treatment">Soch botoksi / Terapiya</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem;" class="hero-grid">
+          <div class="form-group">
+            <label class="form-label">Asosiy natija rasmi (After):</label>
+            <input type="file" name="image" class="form-input" accept="image/*">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Oldingi holat rasmi (Before - ixtiyoriy slayd uchun):</label>
+            <input type="file" name="before_image" class="form-input" accept="image/*">
+          </div>
+        </div>
+
+        <div style="margin-top: 1.2rem;">
+          <button type="submit" class="btn btn-gold">Portfolioga yuklash</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Existing Portfolio Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem;">
+      {% for item in portfolio %}
+      <div class="luxury-card" style="padding: 1.2rem; display: flex; flex-direction: column;">
+        <div style="aspect-ratio: 1/1; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--color-border); margin-bottom: 0.8rem;">
+          <img src="{{ item.image_url }}" alt="{{ item.title_uz }}" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="font-size: 0.75rem; color: var(--color-gold); text-transform: uppercase;">{{ item.category }}</div>
+        <div style="font-weight: 600; color: var(--color-ivory); margin-top: 0.2rem; flex-grow: 1;">{{ item.title_uz }}</div>
+        <div style="margin-top: 0.8rem; border-top: 1px solid var(--color-border); padding-top: 0.8rem;">
+          <form method="POST" action="/pro/portfolio/delete/{{ item.id }}">
+            <button type="submit" class="btn btn-dark btn-sm" style="width: 100%; color: #fca5a5;" onclick="return confirm('Ushbu ishni o‘chirmoqchimisiz?')">
+              O‘chirish
+            </button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

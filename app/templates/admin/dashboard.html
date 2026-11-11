@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block title %}Boshqaruv Paneli — {{ g.t('brand_name') }}{% endblock %}
+
+{% block content %}
+<div class="container section-spacing">
+  <!-- Admin Navigation Subbar -->
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1.5rem; margin-bottom: 2.5rem;">
+    <div>
+      <span class="badge-gold" style="margin-bottom: 0.3rem;">Boshqaruv tizimi</span>
+      <h1 style="font-size: 2rem;">Administrator Paneli</h1>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+      <a href="/admin/dashboard" class="btn btn-gold btn-sm">Boshqaruv</a>
+      <a href="/admin/professionals" class="btn btn-outline btn-sm">5 Mutaxassis</a>
+      <a href="/admin/services" class="btn btn-outline btn-sm">Xizmatlar</a>
+      <a href="/admin/notifications" class="btn btn-outline btn-sm">Bildirishnomalar &amp; Telegram</a>
+      <a href="/admin/settings" class="btn btn-outline btn-sm">Studiya &amp; Logotip</a>
+    </div>
+  </div>
+
+  <!-- KPI Metrics Cards -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+    <div class="luxury-card" style="padding: 1.5rem;">
+      <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-stone);">Jami buyurtmalar</div>
+      <div style="font-size: 2.2rem; font-weight: 700; color: var(--color-ivory); font-family: var(--font-serif); margin-top: 0.2rem;">
+        {{ total_bookings }}
+      </div>
+    </div>
+
+    <div class="luxury-card" style="padding: 1.5rem;">
+      <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-stone);">Kutilayotgan so‘rovlar</div>
+      <div style="font-size: 2.2rem; font-weight: 700; color: #facc15; font-family: var(--font-serif); margin-top: 0.2rem;">
+        {{ pending_bookings }}
+      </div>
+    </div>
+
+    <div class="luxury-card" style="padding: 1.5rem;">
+      <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-stone);">Tasdiqlangan qabullar</div>
+      <div style="font-size: 2.2rem; font-weight: 700; color: #4ade80; font-family: var(--font-serif); margin-top: 0.2rem;">
+        {{ confirmed_bookings }}
+      </div>
+    </div>
+
+    <div class="luxury-card" style="padding: 1.5rem;">
+      <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-stone);">Tugatilgan xizmatlar</div>
+      <div style="font-size: 2.2rem; font-weight: 700; color: #60a5fa; font-family: var(--font-serif); margin-top: 0.2rem;">
+        {{ completed_bookings }}
+      </div>
+    </div>
+
+    <div class="luxury-card" style="padding: 1.5rem;">
+      <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-stone);">Hisoblangan aylanma</div>
+      <div style="font-size: 1.8rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif); margin-top: 0.2rem;">
+        {{ "{:,}".format(total_revenue).replace(',', ' ') }} so'm
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter & Bookings Table -->
+  <div class="luxury-card" style="padding: 2rem; margin-bottom: 3.5rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+      <h3 style="font-size: 1.4rem;">Barcha buyurtmalar monitoringi</h3>
+
+      <!-- Filters -->
+      <form method="GET" action="/admin/dashboard" style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+        <select name="pro_id" class="form-select" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; width: auto;" onchange="this.form.submit()">
+          <option value="">Barcha mutaxassislar</option>
+          {% for p in professionals %}
+          <option value="{{ p.id }}" {% if pro_filter == p.id %}selected{% endif %}>{{ p.name }}</option>
+          {% endfor %}
+        </select>
+
+        <select name="status" class="form-select" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; width: auto;" onchange="this.form.submit()">
+          <option value="">Barcha holatlar</option>
+          <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Kutilmoqda</option>
+          <option value="accepted" {% if status_filter == 'accepted' %}selected{% endif %}>Qabul qilindi</option>
+          <option value="confirmed" {% if status_filter == 'confirmed' %}selected{% endif %}>Tasdiqlandi</option>
+          <option value="completed" {% if status_filter == 'completed' %}selected{% endif %}>Tugatildi</option>
+          <option value="cancelled" {% if status_filter == 'cancelled' %}selected{% endif %}>Bekor qilindi</option>
+        </select>
+      </form>
+    </div>
+
+    <!-- Table -->
+    {% if appointments %}
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+        <thead>
+          <tr style="border-bottom: 1px solid var(--color-border); color: var(--color-stone); font-size: 0.8rem; text-transform: uppercase;">
+            <th style="padding: 0.8rem 0.5rem;">Buyurtma ID</th>
+            <th style="padding: 0.8rem 0.5rem;">Mijoz &amp; Telefon</th>
+            <th style="padding: 0.8rem 0.5rem;">Mutaxassis</th>
+            <th style="padding: 0.8rem 0.5rem;">Xizmat</th>
+            <th style="padding: 0.8rem 0.5rem;">Sana &amp; Vaqt</th>
+            <th style="padding: 0.8rem 0.5rem;">Narxi</th>
+            <th style="padding: 0.8rem 0.5rem;">Holati</th>
+            <th style="padding: 0.8rem 0.5rem;">Amallar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for appt in appointments %}
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+            <td style="padding: 0.8rem 0.5rem; font-family: monospace; font-weight: 700; color: var(--color-gold);">
+              {{ appt.reference_code }}
+            </td>
+            <td style="padding: 0.8rem 0.5rem;">
+              <div style="font-weight: 600; color: var(--color-ivory);">{{ appt.customer_name }}</div>
+              <div style="font-size: 0.8rem; color: var(--color-stone);">{{ appt.customer_phone }}</div>
+              {% if appt.customer_note %}
+              <div style="font-size: 0.75rem; color: var(--color-gold); font-style: italic;">"{{ appt.customer_note }}"</div>
+              {% endif %}
+            </td>
+            <td style="padding: 0.8rem 0.5rem; color: var(--color-ivory);">
+              {{ appt.professional.name }}
+            </td>
+            <td style="padding: 0.8rem 0.5rem; color: var(--color-stone);">
+              {{ appt.service.name_uz }}
+            </td>
+            <td style="padding: 0.8rem 0.5rem; white-space: nowrap;">
+              <div>{{ appt.appointment_date.strftime('%d.%m.%Y') }}</div>
+              <div style="font-size: 0.8rem; color: var(--color-gold);">{{ appt.start_time }} – {{ appt.end_time }}</div>
+            </td>
+            <td style="padding: 0.8rem 0.5rem; font-weight: 600; color: var(--color-gold);">
+              {{ "{:,}".format(appt.price).replace(',', ' ') }}
+            </td>
+            <td style="padding: 0.8rem 0.5rem;">
+              <span class="status-pill status-{{ appt.status }}">
+                {{ g.t('status_' + appt.status) }}
+              </span>
+            </td>
+            <td style="padding: 0.8rem 0.5rem;">
+              <form method="POST" action="/admin/booking/status" style="display: flex; gap: 0.3rem;">
+                <input type="hidden" name="appointment_id" value="{{ appt.id }}">
+                {% if appt.status == 'pending' %}
+                <button type="submit" name="status" value="confirmed" class="btn btn-gold btn-sm" style="padding: 2px 8px; font-size: 0.75rem;">Tasdiqlash</button>
+                <button type="submit" name="status" value="rejected" class="btn btn-dark btn-sm" style="padding: 2px 8px; font-size: 0.75rem;">Rad etish</button>
+                {% elif appt.status in ['confirmed', 'accepted'] %}
+                <button type="submit" name="status" value="completed" class="btn btn-outline btn-sm" style="padding: 2px 8px; font-size: 0.75rem;">Tugatildi</button>
+                <button type="submit" name="status" value="cancelled" class="btn btn-dark btn-sm" style="padding: 2px 8px; font-size: 0.75rem;">Bekor</button>
+                {% else %}
+                <span style="color: var(--color-stone); font-size: 0.75rem;">—</span>
+                {% endif %}
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div style="text-align: center; padding: 2.5rem; color: var(--color-stone);">
+      Tanlangan parametrlar bo‘yicha buyurtmalar topilmadi.
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Recent Telegram Notification Logs -->
+  <div class="luxury-card" style="padding: 2rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
+      <h3 style="font-size: 1.3rem;">So‘nggi bildirishnomalar audit jurnali</h3>
+      <a href="/admin/notifications" class="btn btn-outline btn-sm">Barcha loglar &rarr;</a>
+    </div>
+
+    {% if recent_logs %}
+    <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+      {% for log in recent_logs %}
+      <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--color-border); padding: 0.8rem 1.2rem; border-radius: var(--radius-sm); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem;">
+        <div>
+          <span style="font-weight: 600; text-transform: uppercase; font-size: 0.75rem; color: var(--color-gold);">
+            [{{ log.channel }}]
+          </span>
+          <span style="font-size: 0.88rem; color: var(--color-ivory); margin-left: 0.5rem;">
+            Qabul qiluvchi: {{ log.recipient }}
+          </span>
+          {% if log.error_details %}
+          <div style="font-size: 0.78rem; color: #fca5a5; margin-top: 0.2rem;">
+            Xatolik: {{ log.error_details }}
+          </div>
+          {% endif %}
+        </div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span class="status-pill {% if log.status == 'delivered' %}status-confirmed{% else %}status-cancelled{% endif %}">
+            {{ log.status }}
+          </span>
+          <span style="font-size: 0.75rem; color: var(--color-stone);">
+            {{ log.created_at.strftime('%d.%m.%Y %H:%M') }}
+          </span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p style="color: var(--color-stone); font-size: 0.9rem;">Hali bildirishnoma yuborilmadi.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

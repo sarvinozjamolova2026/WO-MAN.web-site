@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ g.t('booking_success_title') }} — {{ appt.reference_code }}{% endblock %}
+
+{% block content %}
+<div class="container section-spacing" style="max-width: 780px;">
+  <div class="luxury-card" style="padding: 3rem 2.5rem; text-align: center; border-color: var(--color-border-gold);">
+    <!-- Success Icon -->
+    <div style="width: 72px; height: 72px; border-radius: 50%; background: rgba(197, 164, 109, 0.15); border: 2px solid var(--color-gold); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--color-gold);">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+
+    <h1 style="font-size: 2.2rem; margin-bottom: 0.8rem;">{{ g.t('booking_success_title') }}</h1>
+    <p style="font-size: 1.05rem; color: var(--color-stone); max-width: 550px; margin: 0 auto 2.5rem; line-height: 1.7;">
+      {{ g.t('booking_success_desc') }}
+    </p>
+
+    <!-- Reference Code Badge -->
+    <div style="background: rgba(255, 255, 255, 0.03); border: 1px dashed var(--color-border-gold); padding: 1.5rem; border-radius: var(--radius-md); margin-bottom: 2.5rem;">
+      <div style="font-size: 0.82rem; text-transform: uppercase; color: var(--color-stone); letter-spacing: 2px;">{{ g.t('booking_reference_label') }}</div>
+      <div style="font-size: 2.2rem; font-weight: 700; color: var(--color-gold); font-family: monospace; letter-spacing: 3px; margin-top: 0.3rem;">
+        {{ appt.reference_code }}
+      </div>
+      <div style="margin-top: 0.8rem;">
+        <span class="status-pill status-{{ appt.status }}">
+          Holati: {{ g.t('status_' + appt.status) }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Appointment Breakdown Card -->
+    <div style="text-align: left; background: #161616; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 1.8rem; margin-bottom: 2.5rem;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;" class="hero-grid">
+        <div>
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-stone);">{{ g.t('summary_pro') }}</div>
+          <div style="font-size: 1.1rem; font-weight: 600; color: var(--color-ivory);">{{ appt.professional.name }}</div>
+        </div>
+        <div>
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-stone);">{{ g.t('summary_service') }}</div>
+          <div style="font-size: 1.1rem; font-weight: 600; color: var(--color-ivory);">{{ appt.service.name_uz }}</div>
+        </div>
+        <div>
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-stone);">{{ g.t('summary_datetime') }}</div>
+          <div style="font-size: 1.05rem; font-weight: 600; color: var(--color-gold);">
+            {{ appt.appointment_date.strftime('%d.%m.%Y') }} ({{ appt.start_time }} – {{ appt.end_time }})
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-stone);">{{ g.t('summary_price') }}</div>
+          <div style="font-size: 1.25rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif);">
+            {{ "{:,}".format(appt.price).replace(',', ' ') }} so'm
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-stone);">{{ g.t('summary_client') }}</div>
+          <div style="font-size: 1rem; color: var(--color-ivory);">{{ appt.customer_name }} ({{ appt.customer_phone }})</div>
+        </div>
+        {% if appt.customer_note %}
+        <div>
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-stone);">{{ g.t('summary_notes') }}</div>
+          <div style="font-size: 0.95rem; color: var(--color-ivory); font-style: italic;">"{{ appt.customer_note }}"</div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
+      <a href="/booking/download-ics/{{ appt.reference_code }}" class="btn btn-gold">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        {{ g.t('btn_add_to_calendar') }}
+      </a>
+      <a href="https://t.me/woman_grooming" target="_blank" rel="noopener" class="btn btn-outline">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        {{ g.t('btn_contact_telegram') }}
+      </a>
+      <a href="/" class="btn btn-dark">
+        {{ g.t('btn_return_home') }}
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

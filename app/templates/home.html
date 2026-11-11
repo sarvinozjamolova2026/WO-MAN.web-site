@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ g.t('brand_name') }} — {{ g.t('hero_title') }}{% endblock %}
+
+{% block content %}
+<!-- 1. Hero Section -->
+<section class="hero-wrapper">
+  <div class="container">
+    <div class="hero-grid">
+      <!-- Left Content -->
+      <div class="hero-content">
+        <div class="badge-gold">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          {{ g.t('hero_badge') }}
+        </div>
+        <h1 class="hero-title">{{ g.t('hero_title') }}</h1>
+        <p style="font-size: 1.15rem; line-height: 1.7; max-width: 580px;">
+          {{ g.t('hero_subtitle') }}
+        </p>
+
+        <!-- Primary Action Buttons -->
+        <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; margin-top: 0.8rem;">
+          <a href="/book" class="btn btn-gold">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            {{ g.t('hero_cta_book') }}
+          </a>
+          <a href="#professionals" class="btn btn-outline">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            {{ g.t('hero_cta_pros') }}
+          </a>
+        </div>
+
+        <!-- Trust Metrics -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; border-top: 1px solid var(--color-border); padding-top: 1.8rem;">
+          <div>
+            <div style="font-size: 1.6rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif);">5</div>
+            <div style="font-size: 0.85rem; color: var(--color-stone); font-weight: 500;">{{ g.t('hero_stat_pros') }}</div>
+          </div>
+          <div>
+            <div style="font-size: 1.6rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif);">9+</div>
+            <div style="font-size: 0.85rem; color: var(--color-stone); font-weight: 500;">{{ g.t('hero_stat_exp') }}</div>
+          </div>
+          <div>
+            <div style="font-size: 1.6rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif);">100%</div>
+            <div style="font-size: 0.85rem; color: var(--color-stone); font-weight: 500;">{{ g.t('hero_stat_privacy') }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Atmosphere Visual -->
+      <div class="hero-media">
+        <img src="/static/images/portfolio/studio-interior.svg" alt="WO&amp;MAN Studio Atmosphere" class="hero-img">
+        <div style="position: absolute; bottom: 0; inset-inline: 0; background: linear-gradient(to top, rgba(17,17,17,0.9) 0%, transparent 100%); padding: 1.8rem;">
+          <p style="font-size: 0.88rem; color: var(--color-ivory); font-weight: 500; letter-spacing: 1px;">ATELIER • AMIR TEMUR 45, TASHKENT</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Philosophy & Brand Essence -->
+<section class="section-spacing" style="background-color: #141414; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <div class="container" style="max-width: 900px; text-align: center;">
+    <span class="badge-gold" style="margin-bottom: 1rem;">{{ g.t('section_about_title') }}</span>
+    <h2 style="margin-bottom: 1.5rem;">{{ g.t('section_about_heading') }}</h2>
+    <p style="font-size: 1.12rem; line-height: 1.8; color: var(--color-ivory-muted);">
+      {{ g.t('section_about_desc') }}
+    </p>
+  </div>
+</section>
+
+<!-- 3. The Five Resident Professionals -->
+<section id="professionals" class="section-spacing">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1.5rem;">
+      <div>
+        <span class="badge-gold" style="margin-bottom: 0.8rem;">{{ g.t('section_pros_title') }}</span>
+        <h2>{{ g.t('section_pros_heading') }}</h2>
+        <p style="margin-top: 0.5rem; max-width: 600px;">{{ g.t('section_pros_desc') }}</p>
+      </div>
+      <a href="/professionals" class="btn btn-outline btn-sm">{{ g.t('btn_all_pros') }} &rarr;</a>
+    </div>
+
+    <!-- Five Professional Cards -->
+    <div class="pro-grid">
+      {% for pro in professionals %}
+      <div class="pro-card">
+        <a href="/professionals/{{ pro.slug }}" class="pro-media-box">
+          <img src="{{ pro.photo_url }}" alt="{{ pro.name }}" class="pro-img" loading="lazy">
+          <div style="position: absolute; top: 1rem; right: 1rem; background: rgba(17,17,17,0.85); backdrop-filter: blur(6px); border: 1px solid var(--color-border-gold); padding: 4px 10px; border-radius: var(--radius-full); font-size: 0.78rem; font-weight: 600; color: var(--color-gold);">
+            {{ pro.experience_years }} yil tajriba
+          </div>
+        </a>
+        <div class="pro-info">
+          <h3 style="font-size: 1.4rem;">
+            <a href="/professionals/{{ pro.slug }}">{{ pro.name }}</a>
+          </h3>
+          <p style="font-size: 0.85rem; color: var(--color-gold); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">
+            {% if g.lang == 'ru' %}{{ pro.title_ru }}{% elif g.lang == 'en' %}{{ pro.title_en }}{% else %}{{ pro.title_uz }}{% endif %}
+          </p>
+          <p style="font-size: 0.9rem; line-height: 1.6; color: var(--color-stone); flex-grow: 1;">
+            {% if g.lang == 'ru' %}{{ pro.specialties_ru }}{% elif g.lang == 'en' %}{{ pro.specialties_en }}{% else %}{{ pro.specialties_uz }}{% endif %}
+          </p>
+          
+          <div style="display: flex; gap: 0.6rem; margin-top: 0.8rem;">
+            <a href="/professionals/{{ pro.slug }}" class="btn btn-outline btn-sm" style="flex: 1;">
+              {{ g.t('btn_view_portfolio') }}
+            </a>
+            <a href="/book?pro={{ pro.slug }}" class="btn btn-gold btn-sm" style="flex: 1;">
+              {{ g.t('btn_book_with_pro') }}
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- 4. Featured Services Catalogue -->
+<section class="section-spacing" style="background-color: var(--color-graphite-dark); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <div class="container">
+    <div style="text-align: center; max-width: 750px; margin: 0 auto 3.5rem;">
+      <span class="badge-gold" style="margin-bottom: 0.8rem;">{{ g.t('section_services_title') }}</span>
+      <h2>{{ g.t('section_services_heading') }}</h2>
+    </div>
+
+    <!-- Services Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.8rem;">
+      {% for srv in services[:6] %}
+      <div class="luxury-card" style="display: flex; flex-direction: column;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+          <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; color: var(--color-gold);">
+            {% if srv.target_audience == 'men' %}Erkaklar zali{% elif srv.target_audience == 'women' %}Ayollar zali{% else %}Unisex &amp; Spa{% endif %}
+          </span>
+          <span style="font-size: 0.82rem; color: var(--color-stone); background: rgba(255,255,255,0.05); padding: 2px 8px; border-radius: var(--radius-full);">
+            {{ srv.duration_minutes }} {{ g.t('service_duration') }}
+          </span>
+        </div>
+        
+        <h4 style="font-size: 1.25rem; margin-bottom: 0.6rem;">
+          {% if g.lang == 'ru' %}{{ srv.name_ru }}{% elif g.lang == 'en' %}{{ srv.name_en }}{% else %}{{ srv.name_uz }}{% endif %}
+        </h4>
+        
+        <p style="font-size: 0.9rem; line-height: 1.6; color: var(--color-stone); margin-bottom: 1.4rem; flex-grow: 1;">
+          {% if g.lang == 'ru' %}{{ srv.description_ru }}{% elif g.lang == 'en' %}{{ srv.description_en }}{% else %}{{ srv.description_uz }}{% endif %}
+        </p>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); padding-top: 1rem;">
+          <div>
+            <div style="font-size: 0.75rem; color: var(--color-stone); text-transform: uppercase;">{{ g.t('service_starting_from') }}</div>
+            <div style="font-size: 1.25rem; font-weight: 700; color: var(--color-ivory); font-family: var(--font-serif);">
+              {{ "{:,}".format(srv.base_price).replace(',', ' ') }} {{ g.t('currency') }}
+            </div>
+          </div>
+          <a href="/book?service={{ srv.slug }}" class="btn btn-outline btn-sm">
+            {{ g.t('btn_book_service') }}
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div style="text-align: center; margin-top: 3rem;">
+      <a href="/services" class="btn btn-outline">Barcha xizmatlar katalogi &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Interactive Before & After Portfolio -->
+<section class="section-spacing">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1.5rem;">
+      <div>
+        <span class="badge-gold" style="margin-bottom: 0.8rem;">{{ g.t('section_portfolio_title') }}</span>
+        <h2>{{ g.t('section_portfolio_heading') }}</h2>
+        <p style="margin-top: 0.5rem;">{{ g.t('portfolio_before_after') }} — {{ g.t('portfolio_drag_hint') }}</p>
+      </div>
+      <a href="/portfolio" class="btn btn-outline btn-sm">{{ g.t('btn_all_portfolio') }} &rarr;</a>
+    </div>
+
+    <!-- Sliders Showcase -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2.5rem;">
+      <!-- Slide 1: Aziz Karimov Fade & Beard -->
+      <div>
+        <div class="ba-slider-container">
+          <img src="/static/images/portfolio/work-1-after.svg" alt="After" class="ba-image-after">
+          <div class="ba-before-wrapper">
+            <img src="/static/images/portfolio/work-1-before.svg" alt="Before" class="ba-image-before">
+          </div>
+          <div class="ba-handle">&#8596;</div>
+        </div>
+        <div style="margin-top: 1rem;">
+          <h4 style="font-size: 1.15rem;">Low Fade &amp; Royal Beard Shaping</h4>
+          <p style="font-size: 0.85rem; color: var(--color-gold);">Usta: Aziz Karimov (Head Barber)</p>
+        </div>
+      </div>
+
+      <!-- Slide 2: Kamila Rahimova AirTouch Balayage -->
+      <div>
+        <div class="ba-slider-container">
+          <img src="/static/images/portfolio/work-2-after.svg" alt="After" class="ba-image-after">
+          <div class="ba-before-wrapper">
+            <img src="/static/images/portfolio/work-2-before.svg" alt="Before" class="ba-image-before">
+          </div>
+          <div class="ba-handle">&#8596;</div>
+        </div>
+        <div style="margin-top: 1rem;">
+          <h4 style="font-size: 1.15rem;">AirTouch Couture &amp; Balayage</h4>
+          <p style="font-size: 0.85rem; color: var(--color-gold);">Usta: Kamila Rahimova (Art Director &amp; Colorist)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. How Booking Works -->
+<section class="section-spacing" style="background-color: #141414; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <div class="container">
+    <div style="text-align: center; max-width: 700px; margin: 0 auto 3.5rem;">
+      <span class="badge-gold" style="margin-bottom: 0.8rem;">{{ g.t('section_how_title') }}</span>
+      <h2>{{ g.t('section_how_heading') }}</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem;">
+      <div class="luxury-card">
+        <div style="font-size: 2.2rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif); margin-bottom: 1rem;">01</div>
+        <h4 style="margin-bottom: 0.6rem;">{{ g.t('step_1_title') }}</h4>
+        <p style="font-size: 0.9rem;">{{ g.t('step_1_desc') }}</p>
+      </div>
+
+      <div class="luxury-card">
+        <div style="font-size: 2.2rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif); margin-bottom: 1rem;">02</div>
+        <h4 style="margin-bottom: 0.6rem;">{{ g.t('step_2_title') }}</h4>
+        <p style="font-size: 0.9rem;">{{ g.t('step_2_desc') }}</p>
+      </div>
+
+      <div class="luxury-card">
+        <div style="font-size: 2.2rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif); margin-bottom: 1rem;">03</div>
+        <h4 style="margin-bottom: 0.6rem;">{{ g.t('step_3_title') }}</h4>
+        <p style="font-size: 0.9rem;">{{ g.t('step_3_desc') }}</p>
+      </div>
+
+      <div class="luxury-card">
+        <div style="font-size: 2.2rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif); margin-bottom: 1rem;">04</div>
+        <h4 style="margin-bottom: 0.6rem;">{{ g.t('step_4_title') }}</h4>
+        <p style="font-size: 0.9rem;">{{ g.t('step_4_desc') }}</p>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 3.5rem;">
+      <a href="/book" class="btn btn-gold btn-lg" style="padding: 1.1rem 2.5rem; font-size: 1rem;">
+        {{ g.t('hero_cta_book') }} &rarr;
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Verified Reviews -->
+<section class="section-spacing">
+  <div class="container">
+    <div style="text-align: center; max-width: 700px; margin: 0 auto 3.5rem;">
+      <span class="badge-gold" style="margin-bottom: 0.8rem;">{{ g.t('section_reviews_title') }}</span>
+      <h2>{{ g.t('section_reviews_heading') }}</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+      {% for rev in reviews %}
+      <div class="luxury-card">
+        <div style="display: flex; gap: 4px; color: var(--color-gold); margin-bottom: 1rem;">
+          {% for _ in range(rev.rating) %}★{% endfor %}
+        </div>
+        <p style="font-size: 0.95rem; line-height: 1.7; font-style: italic; color: var(--color-ivory-muted); margin-bottom: 1.2rem;">
+          "{{ rev.comment }}"
+        </p>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); padding-top: 0.8rem;">
+          <div>
+            <div style="font-weight: 600; font-size: 0.92rem; color: var(--color-ivory);">{{ rev.customer_name }}</div>
+            <div style="font-size: 0.8rem; color: var(--color-gold);">Usta: {{ rev.professional.name }}</div>
+          </div>
+          <span style="font-size: 0.75rem; color: #4ade80;">✓ {{ g.t('verified_client') }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- 8. Studio Visit & Map -->
+<section class="section-spacing" style="background-color: #0d0d0d; border-top: 1px solid var(--color-border);">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;" class="hero-grid">
+      <div>
+        <span class="badge-gold" style="margin-bottom: 0.8rem;">{{ g.t('section_contact_title') }}</span>
+        <h2 style="margin-bottom: 1.5rem;">{{ g.t('section_contact_heading') }}</h2>
+        <div style="display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1.5rem;">
+          <div>
+            <div style="color: var(--color-gold); font-size: 0.85rem; text-transform: uppercase;">{{ g.t('contact_address_label') }}</div>
+            <div style="font-size: 1.05rem; color: var(--color-ivory);">Toshkent shahri, Amir Temur shox ko'chasi 45-uy</div>
+          </div>
+          <div>
+            <div style="color: var(--color-gold); font-size: 0.85rem; text-transform: uppercase;">{{ g.t('contact_hours_label') }}</div>
+            <div style="font-size: 1.05rem; color: var(--color-ivory);">Har kuni: 09:00 – 21:00 (Dam olish kunlarisiz)</div>
+          </div>
+          <div>
+            <div style="color: var(--color-gold); font-size: 0.85rem; text-transform: uppercase;">{{ g.t('contact_phone_label') }}</div>
+            <div style="font-size: 1.05rem;"><a href="tel:+998712000020" style="color: var(--color-ivory);">{{ g.studio_phone }}</a></div>
+          </div>
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <a href="/book" class="btn btn-gold">{{ g.t('hero_cta_book') }}</a>
+        </div>
+      </div>
+
+      <!-- Map Embed placeholder / Interactive frame -->
+      <div style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border-gold); height: 380px; position: relative;">
+        <iframe 
+          title="WO&amp;MAN Studio Joylashuvi"
+          src="https://maps.google.com/maps?q=Amir%20Temur%20Avenue%20Tashkent&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+          width="100%" 
+          height="100%" 
+          style="border:0; filter: invert(90%) hue-rotate(180deg);" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Mutaxassislar Boshqaruvi — Administrator{% endblock %}
+
+{% block content %}
+<div class="container section-spacing">
+  <!-- Admin Header Bar -->
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1.5rem; margin-bottom: 2.5rem;">
+    <div>
+      <span class="badge-gold" style="margin-bottom: 0.3rem;">Boshqaruv</span>
+      <h1 style="font-size: 2rem;">5 Mutaxassis Hisoblari</h1>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+      <a href="/admin/dashboard" class="btn btn-outline btn-sm">Boshqaruv</a>
+      <a href="/admin/professionals" class="btn btn-gold btn-sm">5 Mutaxassis</a>
+      <a href="/admin/services" class="btn btn-outline btn-sm">Xizmatlar</a>
+      <a href="/admin/notifications" class="btn btn-outline btn-sm">Bildirishnomalar &amp; Telegram</a>
+      <a href="/admin/settings" class="btn btn-outline btn-sm">Studiya &amp; Logotip</a>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 2rem;">
+    {% for pro in professionals %}
+    <div class="luxury-card" style="padding: 2rem;">
+      <form method="POST" action="/admin/professional/update/{{ pro.id }}">
+        <div style="display: grid; grid-template-columns: 120px 1fr 1fr; gap: 2rem; align-items: start;" class="hero-grid">
+          <!-- Portrait preview -->
+          <div style="text-align: center;">
+            <img src="{{ pro.photo_url }}" alt="{{ pro.name }}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-gold); margin-bottom: 0.5rem;">
+            <div style="font-size: 0.78rem; color: var(--color-gold); font-weight: 600;">Tartib: #{{ pro.sort_order }}</div>
+          </div>
+
+          <!-- Basic info -->
+          <div>
+            <div class="form-group">
+              <label class="form-label">To‘liq ismi:</label>
+              <input type="text" name="name" value="{{ pro.name }}" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Lavozimi va unvoni (Uzbek):</label>
+              <input type="text" name="title_uz" value="{{ pro.title_uz }}" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Ixtisoslashuv va uslubi:</label>
+              <input type="text" name="specialties_uz" value="{{ pro.specialties_uz }}" class="form-input">
+            </div>
+          </div>
+
+          <!-- Notification Destination & Settings -->
+          <div>
+            <div class="form-group">
+              <label class="form-label">Telegram Chat ID (Shaxsiy yo‘nalish):</label>
+              <input type="text" name="telegram_chat_id" value="{{ pro.telegram_chat_id or '' }}" class="form-input" placeholder="Masalan: 987654321">
+              <span style="font-size: 0.72rem; color: var(--color-stone);">* Yozilish so‘rovlari faqat shu Chat ID ga yuboriladi.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Telefon (SMS xabarnomalar uchun):</label>
+              <input type="text" name="sms_phone" value="{{ pro.sms_phone or '' }}" class="form-input">
+            </div>
+            <div style="display: flex; gap: 1.5rem; margin-top: 1rem; align-items: center;">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">Tajribasi (yil):</label>
+                <input type="number" name="experience_years" value="{{ pro.experience_years }}" class="form-input" style="width: 80px;">
+              </div>
+              <div style="margin-top: 1.2rem;">
+                <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-size: 0.88rem;">
+                  <input type="checkbox" name="is_active" {% if pro.is_active %}checked{% endif %}>
+                  Faol usta
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; border-top: 1px solid var(--color-border); padding-top: 1rem;">
+          <div style="font-size: 0.85rem; color: var(--color-stone);">
+            Biriktirilgan xizmatlar soni: <b>{{ pro.services|length }} ta</b>
+          </div>
+          <button type="submit" class="btn btn-gold btn-sm">
+            O‘zgarishlarni saqlash
+          </button>
+        </div>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

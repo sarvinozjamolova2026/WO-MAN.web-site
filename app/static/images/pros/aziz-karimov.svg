@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#181818"/>
+      <stop offset="50%" stop-color="#121212"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <radialGradient id="spotlight" cx="50%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#C5A46D" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="goldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C5A46D"/>
+      <stop offset="100%" stop-color="#F5F0E8"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="750" fill="url(#bgGrad)"/>
+  <circle cx="300" cy="260" r="280" fill="url(#spotlight)"/>
+  
+  <!-- Stylized Editorial Portrait: Aziz Karimov (Head Barber) -->
+  <g transform="translate(0, 40)">
+    <!-- Shoulders / Bespoke Barber Smock -->
+    <path d="M 120 620 C 150 490, 210 440, 300 440 C 390 440, 450 490, 480 620 L 520 720 L 80 720 Z" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="2"/>
+    <!-- Collar & Leather apron strap -->
+    <path d="M 230 450 L 300 520 L 370 450" fill="none" stroke="#C5A46D" stroke-width="2.5"/>
+    <path d="M 270 485 L 270 650" stroke="#C5A46D" stroke-width="2" stroke-dasharray="4,4"/>
+    <path d="M 330 485 L 330 650" stroke="#C5A46D" stroke-width="2" stroke-dasharray="4,4"/>
+    
+    <!-- Neck -->
+    <rect x="260" y="340" width="80" height="110" rx="20" fill="#cca385"/>
+    <!-- Shadow under chin -->
+    <ellipse cx="300" cy="370" rx="42" ry="15" fill="#9e7356" opacity="0.4"/>
+    
+    <!-- Face / Head -->
+    <ellipse cx="300" cy="270" rx="80" ry="105" fill="#deb395"/>
+    
+    <!-- Hair - Sharp Low Fade & Textured Top -->
+    <path d="M 215 270 C 210 180, 240 150, 300 145 C 360 150, 390 180, 385 270 C 375 250, 350 230, 300 230 C 250 230, 225 250, 215 270 Z" fill="#1c1917"/>
+    <!-- Fade gradient sides -->
+    <path d="M 215 270 C 216 320, 222 340, 230 350 L 222 320 Z" fill="#2d241e"/>
+    <path d="M 385 270 C 384 320, 378 340, 370 350 L 378 320 Z" fill="#2d241e"/>
+    
+    <!-- Sculpted Beard & Mustache -->
+    <path d="M 230 310 C 240 400, 300 420, 300 420 C 300 420, 360 400, 370 310 C 355 330, 335 340, 300 340 C 265 340, 245 330, 230 310 Z" fill="#1c1917"/>
+    <path d="M 260 320 Q 300 335 340 320 Q 300 310 260 320 Z" fill="#151210"/>
+    
+    <!-- Eyes, Brows & Features -->
+    <path d="M 250 250 Q 275 242 288 250" stroke="#1c1917" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    <path d="M 312 250 Q 325 242 350 250" stroke="#1c1917" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    <circle cx="272" cy="265" r="4.5" fill="#2a1f18"/>
+    <circle cx="328" cy="265" r="4.5" fill="#2a1f18"/>
+    <path d="M 300 260 L 297 295 L 305 295" stroke="#9e7356" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Subtle Editorial Frame & Typography Overlay -->
+  <rect x="25" y="25" width="550" height="700" fill="none" stroke="#C5A46D" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="50" y="660" font-family="'Playfair Display', Georgia, serif" font-size="32" font-weight="600" fill="#F5F0E8" letter-spacing="1">Aziz Karimov</text>
+  <text x="50" y="690" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="500" fill="#C5A46D" letter-spacing="3">HEAD BARBER &amp; DIRECTOR</text>
+  <text x="550" y="685" text-anchor="end" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="400" fill="#888888" letter-spacing="2">WO&amp;MAN ATELIER</text>
+</svg>

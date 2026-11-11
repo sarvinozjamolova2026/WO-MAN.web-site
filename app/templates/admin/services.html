@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Xizmatlar Boshqaruvi — Administrator{% endblock %}
+
+{% block content %}
+<div class="container section-spacing">
+  <!-- Admin Header Bar -->
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1.5rem; margin-bottom: 2.5rem;">
+    <div>
+      <span class="badge-gold" style="margin-bottom: 0.3rem;">Boshqaruv</span>
+      <h1 style="font-size: 2rem;">Xizmatlar Katalogi</h1>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+      <a href="/admin/dashboard" class="btn btn-outline btn-sm">Boshqaruv</a>
+      <a href="/admin/professionals" class="btn btn-outline btn-sm">5 Mutaxassis</a>
+      <a href="/admin/services" class="btn btn-gold btn-sm">Xizmatlar</a>
+      <a href="/admin/notifications" class="btn btn-outline btn-sm">Bildirishnomalar &amp; Telegram</a>
+      <a href="/admin/settings" class="btn btn-outline btn-sm">Studiya &amp; Logotip</a>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.8rem;">
+    {% for srv in services %}
+    <div class="luxury-card" style="padding: 1.8rem; display: flex; flex-direction: column;">
+      <form method="POST" action="/admin/service/update/{{ srv.id }}">
+        <div class="form-group">
+          <label class="form-label">Xizmat nomi:</label>
+          <input type="text" name="name_uz" value="{{ srv.name_uz }}" class="form-input" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Narxi (so'm):</label>
+            <input type="number" name="base_price" value="{{ srv.base_price }}" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Davomiyligi (daqiqa):</label>
+            <input type="number" name="duration_minutes" value="{{ srv.duration_minutes }}" class="form-input" required>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Auditoriya:</label>
+            <select name="target_audience" class="form-select">
+              <option value="men" {% if srv.target_audience == 'men' %}selected{% endif %}>Erkaklar</option>
+              <option value="women" {% if srv.target_audience == 'women' %}selected{% endif %}>Ayollar</option>
+              <option value="unisex" {% if srv.target_audience == 'unisex' %}selected{% endif %}>Unisex / Spa</option>
+            </select>
+          </div>
+          <div style="margin-top: 1.8rem;">
+            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-size: 0.88rem;">
+              <input type="checkbox" name="is_active" {% if srv.is_active %}checked{% endif %}>
+              Faol xizmat
+            </label>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; border-top: 1px solid var(--color-border); padding-top: 1rem; text-align: right;">
+          <button type="submit" class="btn btn-gold btn-sm">Saqlash</button>
+        </div>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

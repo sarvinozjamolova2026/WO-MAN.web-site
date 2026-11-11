@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#181c19"/>
+      <stop offset="50%" stop-color="#111412"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <radialGradient id="spotlight3" cx="50%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#C5A46D" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="750" fill="url(#bgGrad3)"/>
+  <circle cx="300" cy="260" r="280" fill="url(#spotlight3)"/>
+  
+  <!-- Stylized Editorial Portrait: Jamshid Aliev (Senior Master Barber) -->
+  <g transform="translate(0, 40)">
+    <path d="M 120 620 C 150 490, 210 440, 300 440 C 390 440, 450 490, 480 620 L 520 720 L 80 720 Z" fill="#1b1c1e" stroke="#2c2d30" stroke-width="2"/>
+    <!-- Tailored vest & necktie -->
+    <path d="M 260 440 L 300 560 L 340 440" fill="#141416"/>
+    <path d="M 292 460 L 308 460 L 304 530 L 296 530 Z" fill="#C5A46D"/>
+    
+    <rect x="260" y="340" width="80" height="110" rx="20" fill="#d4aa8c"/>
+    <ellipse cx="300" cy="270" rx="78" ry="102" fill="#e0b89b"/>
+    
+    <!-- Hair - Classic Side Part & Pompadour -->
+    <path d="M 220 250 C 215 160, 260 135, 310 135 C 370 135, 395 170, 385 250 C 360 220, 330 220, 280 230 C 240 240, 230 250, 220 250 Z" fill="#171717"/>
+    <!-- Trimmed Executive Beard -->
+    <path d="M 235 320 C 245 400, 300 415, 300 415 C 300 415, 355 400, 365 320 C 350 335, 330 345, 300 345 C 270 345, 250 335, 235 320 Z" fill="#171717"/>
+    
+    <path d="M 252 248 Q 275 240 288 248" stroke="#171717" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 312 248 Q 325 240 348 248" stroke="#171717" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="272" cy="262" r="4.5" fill="#241e1b"/>
+    <circle cx="328" cy="262" r="4.5" fill="#241e1b"/>
+    <path d="M 300 258 L 297 292 L 304 292" stroke="#b08569" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+  
+  <rect x="25" y="25" width="550" height="700" fill="none" stroke="#C5A46D" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="50" y="660" font-family="'Playfair Display', Georgia, serif" font-size="32" font-weight="600" fill="#F5F0E8" letter-spacing="1">Jamshid Aliev</text>
+  <text x="50" y="690" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="500" fill="#C5A46D" letter-spacing="3">MASTER BARBER &amp; GROOMING</text>
+  <text x="550" y="685" text-anchor="end" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="400" fill="#888888" letter-spacing="2">WO&amp;MAN ATELIER</text>
+</svg>

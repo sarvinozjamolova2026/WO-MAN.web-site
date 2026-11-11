@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ g.t('nav_services') }} — {{ g.t('brand_name') }}{% endblock %}
+
+{% block content %}
+<div class="container section-spacing">
+  <!-- Page Header -->
+  <div style="text-align: center; max-width: 800px; margin: 0 auto 3.5rem;">
+    <span class="badge-gold" style="margin-bottom: 0.8rem;">{{ g.t('section_services_title') }}</span>
+    <h1 style="margin-bottom: 1rem;">{{ g.t('section_services_heading') }}</h1>
+    <p style="font-size: 1.1rem; color: var(--color-stone);">
+      Har bir xizmat individual yondashuv, xalqaro premium kosmetika vositalari va mutaxassisning yuqori mahorati bilan bajariladi.
+    </p>
+
+    <!-- Category Filter Tabs -->
+    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem;">
+      <button type="button" class="btn btn-outline btn-sm active srv-page-tab" data-filter="all">{{ g.t('services_tab_all') }}</button>
+      <button type="button" class="btn btn-outline btn-sm srv-page-tab" data-filter="men">{{ g.t('services_tab_men') }}</button>
+      <button type="button" class="btn btn-outline btn-sm srv-page-tab" data-filter="women">{{ g.t('services_tab_women') }}</button>
+      <button type="button" class="btn btn-outline btn-sm srv-page-tab" data-filter="spa">{{ g.t('services_tab_spa') }}</button>
+    </div>
+  </div>
+
+  <!-- Services Grid -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem;" id="services-grid">
+    {% for srv in services %}
+    <div class="luxury-card service-card-item" data-audience="{{ srv.target_audience }}" data-category="{{ srv.category.slug if srv.category else 'other' }}" style="display: flex; flex-direction: column;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.2rem;">
+        <span class="badge-gold" style="font-size: 0.72rem;">
+          {% if srv.target_audience == 'men' %}Erkaklar zali{% elif srv.target_audience == 'women' %}Ayollar zali{% else %}Unisex &amp; Spa{% endif %}
+        </span>
+        <span style="font-size: 0.82rem; color: var(--color-stone); background: rgba(255,255,255,0.06); padding: 3px 10px; border-radius: var(--radius-full);">
+          {{ srv.duration_minutes }} {{ g.t('service_duration') }}
+        </span>
+      </div>
+
+      <h3 style="font-size: 1.35rem; margin-bottom: 0.8rem;">
+        {% if g.lang == 'ru' %}{{ srv.name_ru }}{% elif g.lang == 'en' %}{{ srv.name_en }}{% else %}{{ srv.name_uz }}{% endif %}
+      </h3>
+
+      <p style="font-size: 0.92rem; line-height: 1.65; color: var(--color-stone); margin-bottom: 1.5rem; flex-grow: 1;">
+        {% if g.lang == 'ru' %}{{ srv.description_ru }}{% elif g.lang == 'en' %}{{ srv.description_en }}{% else %}{{ srv.description_uz }}{% endif %}
+      </p>
+
+      <!-- Associated Specialists -->
+      <div style="margin-bottom: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--color-border);">
+        <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-stone); margin-bottom: 0.5rem; letter-spacing: 1px;">
+          Mutaxassislar:
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+          {% for pro in srv.professionals %}
+          <a href="/professionals/{{ pro.slug }}" style="font-size: 0.82rem; background: rgba(197, 164, 109, 0.08); border: 1px solid var(--color-border-gold); padding: 2px 8px; border-radius: 4px; color: var(--color-ivory);">
+            {{ pro.name }}
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Price & Booking CTA -->
+      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); padding-top: 1.2rem;">
+        <div>
+          <div style="font-size: 0.75rem; color: var(--color-stone); text-transform: uppercase;">{{ g.t('service_starting_from') }}</div>
+          <div style="font-size: 1.3rem; font-weight: 700; color: var(--color-gold); font-family: var(--font-serif);">
+            {{ "{:,}".format(srv.base_price).replace(',', ' ') }} {{ g.t('currency') }}
+          </div>
+        </div>
+
+        <a href="/book?service={{ srv.slug }}" class="btn btn-gold btn-sm">
+          {{ g.t('btn_book_service') }}
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('.srv-page-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.srv-page-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.service-card-item').forEach(card => {
+      if (filter === 'all' || card.dataset.audience === filter || card.dataset.category === filter) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
+{% endblock %}

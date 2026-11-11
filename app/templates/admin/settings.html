@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Studiya Sozlamalari va Logotip — Administrator{% endblock %}
+
+{% block content %}
+<div class="container section-spacing" style="max-width: 850px;">
+  <!-- Admin Header Bar -->
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1.5rem; margin-bottom: 2.5rem;">
+    <div>
+      <span class="badge-gold" style="margin-bottom: 0.3rem;">Boshqaruv</span>
+      <h1 style="font-size: 2rem;">Studiya Sozlamalari &amp; Logotip</h1>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+      <a href="/admin/dashboard" class="btn btn-outline btn-sm">Boshqaruv</a>
+      <a href="/admin/professionals" class="btn btn-outline btn-sm">5 Mutaxassis</a>
+      <a href="/admin/services" class="btn btn-outline btn-sm">Xizmatlar</a>
+      <a href="/admin/notifications" class="btn btn-outline btn-sm">Bildirishnomalar &amp; Telegram</a>
+      <a href="/admin/settings" class="btn btn-gold btn-sm">Studiya &amp; Logotip</a>
+    </div>
+  </div>
+
+  <div class="luxury-card" style="padding: 2.5rem;">
+    <form method="POST" action="/admin/settings" enctype="multipart/form-data">
+      <!-- 1. Official Brand Logo Uploader -->
+      <div style="border-bottom: 1px solid var(--color-border); padding-bottom: 2rem; margin-bottom: 2rem;">
+        <h3 style="color: var(--color-gold); margin-bottom: 0.8rem;">Rasmiy brend logotipi</h3>
+        <p style="font-size: 0.9rem; color: var(--color-stone); margin-bottom: 1.5rem; line-height: 1.6;">
+          Saytning barcha bo‘limlari (navbar, mobil menyu, foter, brauzer faviconi) uchun rasmiy WO&amp;MAN logotipini yuklang yoki almashtiring. Shaffof fon (transparent PNG yoki SVG) tavsiya etiladi.
+        </p>
+
+        <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; background: #0c0c0c; border: 1px dashed var(--color-border-gold); padding: 1.5rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
+          <div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--color-stone); margin-bottom: 0.5rem;">Hozirgi faol logotip ko‘rinishi:</div>
+            <img src="{{ g.brand_logo_path }}" alt="WO&amp;MAN Logo" style="height: 52px; object-fit: contain; background: #111; padding: 4px 10px; border-radius: 4px; border: 1px solid #222;">
+          </div>
+          <div style="flex-grow: 1;">
+            <label class="form-label">Yangi logotip faylini tanlang (PNG, SVG, WEBP):</label>
+            <input type="file" name="logo_file" class="form-input" accept="image/*">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Studio Contact Information -->
+      <div style="border-bottom: 1px solid var(--color-border); padding-bottom: 2rem; margin-bottom: 2rem;">
+        <h3 style="color: var(--color-gold); margin-bottom: 1rem;">Aloqa va Joylashuv ma'lumotlari</h3>
+        
+        <div class="form-group">
+          <label class="form-label">Aloqa telefoni:</label>
+          <input type="text" name="studio_phone" value="{{ settings.get('studio_phone', '+998 71 200 00 20') }}" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Studiyaning to‘liq manzili:</label>
+          <input type="text" name="studio_address" value="{{ settings.get('studio_address', 'Toshkent shahri, Amir Temur shox ko\'chasi, 45-uy') }}" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Ish vaqti rejimi:</label>
+          <input type="text" name="studio_working_hours" value="{{ settings.get('studio_working_hours', '09:00 - 21:00 (Har kuni)') }}" class="form-input">
+        </div>
+      </div>
+
+      <div style="text-align: right;">
+        <button type="submit" class="btn btn-gold" style="padding: 0.9rem 2.2rem;">
+          Barcha sozlamalarni saqlash &rarr;
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

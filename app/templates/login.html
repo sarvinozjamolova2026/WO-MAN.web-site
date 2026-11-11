@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Tizimga kirish — {{ g.t('brand_name') }}{% endblock %}
+
+{% block content %}
+<div class="container section-spacing" style="max-width: 480px;">
+  <div class="luxury-card" style="padding: 2.8rem 2.2rem; border-color: var(--color-border-gold);">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <img src="{{ g.brand_logo_path }}" alt="WO&amp;MAN" style="height: 48px; margin-bottom: 1rem;">
+      <h2 style="font-size: 1.8rem;">Xizmat portaliga kirish</h2>
+      <p style="font-size: 0.9rem; color: var(--color-stone); margin-top: 0.3rem;">
+        Administrator va mutaxassislar uchun shaxsiy kabinet
+      </p>
+    </div>
+
+    {% if error %}
+    <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; padding: 0.8rem 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-size: 0.9rem; text-align: center;">
+      {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="/login">
+      <div class="form-group">
+        <label for="username" class="form-label">Foydalanuvchi nomi (Login)</label>
+        <input type="text" id="username" name="username" class="form-input" placeholder="admin yoki pro_aziz" required autofocus>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1.8rem;">
+        <label for="password" class="form-label">Maxfiy parol</label>
+        <input type="password" id="password" name="password" class="form-input" placeholder="••••••••" required>
+      </div>
+
+      <button type="submit" class="btn btn-gold" style="width: 100%; padding: 0.95rem;">
+        Kirish &rarr;
+      </button>
+    </form>
+
+    <!-- Demo Credentials Helper Card -->
+    <div style="margin-top: 2rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem; font-size: 0.82rem; color: var(--color-stone);">
+      <div style="font-weight: 600; color: var(--color-gold); margin-bottom: 0.5rem; text-transform: uppercase;">
+        Sinov hisoblari (Demo loginlar):
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+        <div><b>Administrator:</b> <code>admin</code> / <code>Admin2026!WM</code></div>
+        <div><b>Aziz Karimov:</b> <code>pro_aziz</code> / <code>Pro2026!WM</code></div>
+        <div><b>Kamila Rahimova:</b> <code>pro_kamila</code> / <code>Pro2026!WM</code></div>
+        <div><b>Jamshid Aliev:</b> <code>pro_jamshid</code> / <code>Pro2026!WM</code></div>
+        <div><b>Madina Yusupova:</b> <code>pro_madina</code> / <code>Pro2026!WM</code></div>
+        <div><b>Shavkat Rustamov:</b> <code>pro_shavkat</code> / <code>Pro2026!WM</code></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

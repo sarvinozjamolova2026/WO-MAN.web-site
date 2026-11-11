@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16181f"/>
+      <stop offset="50%" stop-color="#101116"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <radialGradient id="spotlight5" cx="50%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#C5A46D" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="750" fill="url(#bgGrad5)"/>
+  <circle cx="300" cy="260" r="280" fill="url(#spotlight5)"/>
+  
+  <!-- Stylized Editorial Portrait: Shavkat Rustamov (Stylist & Aesthetic Grooming) -->
+  <g transform="translate(0, 40)">
+    <!-- Contemporary Minimalist Jacket -->
+    <path d="M 120 620 C 150 490, 210 440, 300 440 C 390 440, 450 490, 480 620 L 520 720 L 80 720 Z" fill="#14151a" stroke="#252733" stroke-width="2"/>
+    <path d="M 270 440 L 300 550 L 330 440" fill="#0f1013"/>
+    
+    <rect x="260" y="340" width="80" height="110" rx="20" fill="#d8ab8f"/>
+    <ellipse cx="300" cy="270" rx="78" ry="102" fill="#e5bda1"/>
+    
+    <!-- Modern Textured Crop with Taper Fade -->
+    <path d="M 215 260 C 210 160, 245 130, 300 130 C 355 130, 390 160, 385 260 C 375 235, 340 215, 300 215 C 260 215, 225 235, 215 260 Z" fill="#1a1816"/>
+    <!-- Textured fringe detail -->
+    <path d="M 250 215 L 260 235 L 275 215 L 290 238 L 305 215 L 320 238 L 335 215 L 350 235" stroke="#1a1816" stroke-width="6" stroke-linecap="round"/>
+    
+    <!-- Neatly Groomed 5 O'clock Stubble -->
+    <path d="M 240 330 C 250 395, 300 410, 300 410 C 300 410, 350 395, 360 330 C 345 345, 325 352, 300 352 C 275 352, 255 345, 240 330 Z" fill="#2d221b" opacity="0.4"/>
+    
+    <path d="M 252 248 Q 275 240 288 248" stroke="#1a1816" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 312 248 Q 325 240 348 248" stroke="#1a1816" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="272" cy="262" r="4.5" fill="#201a17"/>
+    <circle cx="328" cy="262" r="4.5" fill="#201a17"/>
+    <path d="M 300 258 L 297 292 L 304 292" stroke="#b2876b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+  
+  <rect x="25" y="25" width="550" height="700" fill="none" stroke="#C5A46D" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="50" y="660" font-family="'Playfair Display', Georgia, serif" font-size="32" font-weight="600" fill="#F5F0E8" letter-spacing="1">Shavkat Rustamov</text>
+  <text x="50" y="690" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="500" fill="#C5A46D" letter-spacing="3">STYLIST &amp; AESTHETIC GROOMING</text>
+  <text x="550" y="685" text-anchor="end" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="400" fill="#888888" letter-spacing="2">WO&amp;MAN ATELIER</text>
+</svg>

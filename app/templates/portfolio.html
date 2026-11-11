@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ g.t('nav_portfolio') }} — {{ g.t('brand_name') }}{% endblock %}
+
+{% block content %}
+<div class="container section-spacing">
+  <!-- Page Header -->
+  <div style="text-align: center; max-width: 800px; margin: 0 auto 3.5rem;">
+    <span class="badge-gold" style="margin-bottom: 0.8rem;">{{ g.t('section_portfolio_title') }}</span>
+    <h1 style="margin-bottom: 1rem;">{{ g.t('section_portfolio_heading') }}</h1>
+    <p style="font-size: 1.1rem; color: var(--color-stone);">
+      Haqiqiy mualliflik ishlari, oldin va keyin o‘zgarishlar va stilistik transformsiyalar.
+    </p>
+
+    <!-- Category Filter Tabs -->
+    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem;">
+      <a href="/portfolio" class="btn btn-outline btn-sm {% if active_category == 'all' %}active{% endif %}">Barchasi</a>
+      <a href="/portfolio?category=men_cut" class="btn btn-outline btn-sm {% if active_category == 'men_cut' %}active{% endif %}">Erkaklar turmagi</a>
+      <a href="/portfolio?category=beard" class="btn btn-outline btn-sm {% if active_category == 'beard' %}active{% endif %}">Soqol dizayni</a>
+      <a href="/portfolio?category=color" class="btn btn-outline btn-sm {% if active_category == 'color' %}active{% endif %}">AirTouch &amp; Koloristika</a>
+      <a href="/portfolio?category=styling" class="btn btn-outline btn-sm {% if active_category == 'styling' %}active{% endif %}">Stilizatsiya</a>
+      <a href="/portfolio?category=treatment" class="btn btn-outline btn-sm {% if active_category == 'treatment' %}active{% endif %}">Soch botoksi</a>
+    </div>
+  </div>
+
+  <!-- Portfolio Grid -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 2.5rem;">
+    {% for item in items %}
+    <div class="luxury-card" style="padding: 1.5rem; display: flex; flex-direction: column;">
+      {% if item.before_image_url %}
+      <!-- Interactive Slider -->
+      <div class="ba-slider-container">
+        <img src="{{ item.image_url }}" alt="After" class="ba-image-after">
+        <div class="ba-before-wrapper">
+          <img src="{{ item.before_image_url }}" alt="Before" class="ba-image-before">
+        </div>
+        <div class="ba-handle">&#8596;</div>
+      </div>
+      <div style="font-size: 0.75rem; color: var(--color-stone); margin-top: 0.5rem; text-align: center;">
+        ↔ Solishtirish uchun tutqichni suring
+      </div>
+      {% else %}
+      <!-- Static High-Res Artwork -->
+      <div style="aspect-ratio: 1/1; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--color-border);">
+        <img src="{{ item.image_url }}" alt="{{ item.title_uz }}" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      {% endif %}
+
+      <div style="margin-top: 1.2rem; flex-grow: 1;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.72rem; text-transform: uppercase; color: var(--color-gold); font-weight: 600; letter-spacing: 1px;">
+            {{ item.category }}
+          </span>
+          <a href="/professionals/{{ item.professional.slug }}" style="font-size: 0.8rem; color: var(--color-stone);">
+            {{ item.professional.name }} &rarr;
+          </a>
+        </div>
+        <h4 style="font-size: 1.15rem; margin-top: 0.4rem;">
+          {% if g.lang == 'ru' %}{{ item.title_ru }}{% elif g.lang == 'en' %}{{ item.title_en }}{% else %}{{ item.title_uz }}{% endif %}
+        </h4>
+      </div>
+
+      <div style="margin-top: 1rem; border-top: 1px solid var(--color-border); padding-top: 1rem;">
+        <a href="/book?pro={{ item.professional.slug }}" class="btn btn-gold btn-sm" style="width: 100%;">
+          Ushbu ustaga yozilish
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

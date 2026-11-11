@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}Bildirishnomalar va Telegram — Administrator{% endblock %}
+
+{% block content %}
+<div class="container section-spacing">
+  <!-- Admin Header Bar -->
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1.5rem; margin-bottom: 2.5rem;">
+    <div>
+      <span class="badge-gold" style="margin-bottom: 0.3rem;">Boshqaruv</span>
+      <h1 style="font-size: 2rem;">Telegram va SMS Bildirishnomalari</h1>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+      <a href="/admin/dashboard" class="btn btn-outline btn-sm">Boshqaruv</a>
+      <a href="/admin/professionals" class="btn btn-outline btn-sm">5 Mutaxassis</a>
+      <a href="/admin/services" class="btn btn-outline btn-sm">Xizmatlar</a>
+      <a href="/admin/notifications" class="btn btn-gold btn-sm">Bildirishnomalar &amp; Telegram</a>
+      <a href="/admin/settings" class="btn btn-outline btn-sm">Studiya &amp; Logotip</a>
+    </div>
+  </div>
+
+  <!-- 1. Central Telegram Bot API Token Setup -->
+  <div class="luxury-card" style="padding: 2rem; margin-bottom: 3rem;">
+    <h3 style="margin-bottom: 1rem; color: var(--color-gold);">1. Rasmiy Telegram Bot sozlamasi</h3>
+    <p style="font-size: 0.92rem; color: var(--color-stone); margin-bottom: 1.5rem; line-height: 1.6;">
+      Bitta rasmiy Telegram bot barcha 5 nafar mutaxassisga alohida shaxsiy xabarlarni yo‘naltiradi. Bot tokenini kiriting yoki <code>.env</code> faylida <code>TELEGRAM_BOT_TOKEN</code> parametrini belgilang.
+    </p>
+
+    <form method="POST" action="/admin/notifications/save-bot" style="display: flex; gap: 1rem; max-width: 600px;">
+      <input type="password" name="telegram_bot_token" class="form-input" placeholder="123456789:ABCdefGhIJKlmNoPQRstuVWXyz" value="{{ bot_token }}">
+      <button type="submit" class="btn btn-gold" style="white-space: nowrap;">Botni saqlash</button>
+    </form>
+    
+    <div style="margin-top: 0.8rem; font-size: 0.82rem;">
+      {% if bot_token %}
+        <span style="color: #4ade80;">✓ Telegram Bot tokeni sozlangan</span>
+      {% else %}
+        <span style="color: #facc15;">! Token kiritilmagan. So‘rovlar jurnalga yoziladi, ammo Telegram'ga jo‘natilmaydi.</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- 2. Independent Telegram Destinations for the 5 Professionals -->
+  <div style="margin-bottom: 3.5rem;">
+    <h3 style="margin-bottom: 1rem;">2. Besh mutaxassisning shaxsiy Telegram yo‘nalishlari</h3>
+    <p style="font-size: 0.92rem; color: var(--color-stone); margin-bottom: 2rem;">
+      Mijoz yozilganida, xabar umumiy guruhga emas, aynan tanlangan mutaxassisning shaxsiy Chat ID siga boradi. Har birini alohida sinab ko‘ring:
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.8rem;">
+      {% for pro in professionals %}
+      <div class="luxury-card" style="padding: 1.8rem; display: flex; flex-direction: column;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem;">
+          <img src="{{ pro.photo_url }}" alt="{{ pro.name }}" style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 1px solid var(--color-gold);">
+          <div>
+            <div style="font-weight: 700; font-size: 1.15rem; color: var(--color-ivory);">{{ pro.name }}</div>
+            <div style="font-size: 0.78rem; color: var(--color-gold); text-transform: uppercase;">{{ pro.title_uz }}</div>
+          </div>
+        </div>
+
+        <form method="POST" action="/admin/notifications/test-pro/{{ pro.id }}" style="display: flex; flex-direction: column; gap: 1rem; flex-grow: 1;">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" style="font-size: 0.8rem;">Shaxsiy Chat ID:</label>
+            <input type="text" name="telegram_chat_id" value="{{ pro.telegram_chat_id or '' }}" class="form-input" placeholder="Masalan: 12345678">
+          </div>
+
+          <div style="margin-top: auto; border-top: 1px solid var(--color-border); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.78rem; {% if pro.telegram_chat_id %}color: #4ade80;{% else %}color: #facc15;{% endif %}">
+              {% if pro.telegram_chat_id %}Ulangan{% else %}Chat ID kutilmoqda{% endif %}
+            </span>
+            <button type="submit" class="btn btn-outline btn-sm">
+              Sinov xabari yuborish &rarr;
+            </button>
+          </div>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 3. Notification Audit Logs -->
+  <div class="luxury-card" style="padding: 2rem;">
+    <h3 style="margin-bottom: 1.2rem;">3. Bildirishnomalar yetkazilishi monitoringi (Audit)</h3>
+    {% if logs %}
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem;">
+        <thead>
+          <tr style="border-bottom: 1px solid var(--color-border); color: var(--color-stone); font-size: 0.78rem; text-transform: uppercase;">
+            <th style="padding: 0.8rem 0.5rem;">Kanal</th>
+            <th style="padding: 0.8rem 0.5rem;">Qabul qiluvchi (Chat ID)</th>
+            <th style="padding: 0.8rem 0.5rem;">Xabar matni</th>
+            <th style="padding: 0.8rem 0.5rem;">Holati</th>
+            <th style="padding: 0.8rem 0.5rem;">Vaqti</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for log in logs %}
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+            <td style="padding: 0.8rem 0.5rem; text-transform: uppercase; font-weight: 700; color: var(--color-gold);">
+              {{ log.channel }}
+            </td>
+            <td style="padding: 0.8rem 0.5rem; color: var(--color-ivory);">
+              {{ log.recipient }}
+            </td>
+            <td style="padding: 0.8rem 0.5rem; color: var(--color-stone); max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+              {{ log.payload_text|striptags }}
+            </td>
+            <td style="padding: 0.8rem 0.5rem;">
+              <span class="status-pill {% if log.status == 'delivered' %}status-confirmed{% else %}status-cancelled{% endif %}">
+                {{ log.status }}
+              </span>
+            </td>
+            <td style="padding: 0.8rem 0.5rem; color: var(--color-stone); font-size: 0.8rem;">
+              {{ log.created_at.strftime('%d.%m.%Y %H:%M:%S') }}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p style="color: var(--color-stone);">Hali bildirishnomalar yuborilmadi.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
